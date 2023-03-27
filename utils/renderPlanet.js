@@ -1,4 +1,4 @@
-function gapCalculation(time) {
+function gapTimeCalculation(time) {
     var epochDate = new Date(time);
     epochDate = epochDate.getTime();
 
@@ -8,5 +8,5 @@ function gapCalculation(time) {
 }
 
 module.exports = {
-    gapCalculation
+    gapTimeCalculation
 };
