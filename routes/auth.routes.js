@@ -55,6 +55,9 @@ router.post("/signup", isUserLoggedOut, (req, res, next) => {
         username,
         email,
         passwordHash: hashedPassword,
+        username,
+        email,
+        passwordHash: hashedPassword,
       });
     })
     .then((user) => {
@@ -84,6 +87,7 @@ router.post("/login", isUserLoggedOut, (req, res, next) => {
   const { email, password } = req.body;
 
   // Check that username, email, and password are provided
+  if (email === "" || password === "") {
   if (email === "" || password === "") {
     res.status(400).render("auth/login", {
       errorMessage:

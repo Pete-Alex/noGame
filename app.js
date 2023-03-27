@@ -9,7 +9,6 @@ require("./config/session.config")(app);
 
 // default value for title local
 const capitalize = require("./utils/capitalize");
-
 const projectName = "NoGame";
 
 app.locals.appTitle = `${projectName}`;

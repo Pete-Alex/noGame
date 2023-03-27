@@ -39,6 +39,10 @@ const PlanetSchema = new Schema(
             }
         }
     },
+    {
+      // this second object adds extra properties: `createdAt` and `updatedAt`
+      timestamps: true,
+    }
 );
 
 const Planet = model("Planet", PlanetSchema);

@@ -1,6 +1,6 @@
 const { Schema, model } = require("mongoose");
 
-const buildingTypeSchema = new Schema(
+const BuildingTypeSchema = new Schema(
     {
         name: String,
         image: String,
@@ -14,5 +14,5 @@ const buildingTypeSchema = new Schema(
     },
 );
 
-const BuildingType = model("BuildingType", buildingTypeSchema);
+const BuildingType = model("BuildingType", BuildingTypeSchema);
 module.exports = BuildingType;

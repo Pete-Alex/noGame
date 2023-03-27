@@ -4,7 +4,7 @@ const Planet = require('../models/Planet.model');
 const User = require('../models/User.model');
 
 
-const builingsType = [
+const buildingTypes = [
     {
         name: "Metal Mine",
         description: 'Used in the extraction of metal ore, metal mines are of primary importance to all emerging and established empires.',
@@ -97,13 +97,13 @@ async function seedData() {
 
         /* DELETE EXISTING DATA */
         const deletedPlanets = await Planet.deleteMany({});
-        const deletedBuildingType = await BuildingType.deleteMany({});
-        console.log(deletedPlanets, deletedBuildingType);
+        const deletedBuildingTypes = await BuildingType.deleteMany({});
+        console.log(deletedPlanets, deletedBuildingTypes);
 
-        
+
         /* Seed Building Type */
-        const builingsTypeCreated = await BuildingType.insertMany(builingsType);
-        console.log(`Number of buildings type created... ${builingsTypeCreated.length} `);
+        const BuildingTypesCreated = await BuildingType.insertMany(buildingTypes);
+        console.log(`Number of buildings type created... ${BuildingTypesCreated.length} `);
 
 
         const planetsWithIds = [];
