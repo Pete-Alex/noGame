@@ -17,9 +17,33 @@ const userSchema = new Schema(
       trim: true,
       lowercase: true,
     },
-    password: {
+    passwordHash: {
       type: String,
-      required: [true, "Password required"]
+      required: [true, "Password is required"],
+    },
+    planetListOwned: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Planet",
+      },
+    ],
+    planetListVisited: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Planet",
+      },
+    ],
+    ressources: {
+      metal: {
+        type: Number,
+        required: true,
+        min: 0,
+      },
+      energy: {
+        type: Number,
+        required: true,
+        min: 0,
+      },
     },
   },
   {
