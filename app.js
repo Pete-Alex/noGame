@@ -1,23 +1,11 @@
-// ℹ️ Gets access to environment variables/settings
-// https://www.npmjs.com/package/dotenv
-require("dotenv").config();
-
-// ℹ️ Connects to the database
-require("./db");
-
-// Handles http requests (express is node js framework)
-// https://www.npmjs.com/package/express
-const express = require("express");
-
-// Handles the handlebars
-// https://www.npmjs.com/package/hbs
-const hbs = require("hbs");
-
+require("dotenv").config(); // ℹ️ Gets access to environment variables/settings
+require("./db"); // ℹ️ Connects to the database
+const express = require("express"); // Handles http requests (express is node js framework)
+const hbs = require("hbs"); // Handles the handlebars
 const app = express();
 
-// ℹ️ This function is getting exported from the config folder. It runs most pieces of middleware
-require("./config")(app);
 
+require("./config")(app); // ℹ️ This function is getting exported from the config folder. It runs most pieces of middleware
 require('./config/session.config')(app);
 
 // default value for title local
