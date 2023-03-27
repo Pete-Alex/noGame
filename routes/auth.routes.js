@@ -1,16 +1,13 @@
-const express = require('express');
-const mongoose = require('mongoose');
+const express = require("express");
+const mongoose = require("mongoose");
 
-const { isUserLoggedIn, isUserLoggedOut } = require('../middleware/logged.js');
+const { isUserLoggedIn, isUserLoggedOut } = require("../middleware/logged.js");
 
 const router = express.Router();
 
-const User = require('../models/User.model');
-const bcryptjs = require('bcryptjs');
+const User = require("../models/User.model");
+const bcryptjs = require("bcryptjs");
 const saltRounds = 10;
-
-
-
 
 // GET /auth/signup
 router.get("/signup", isUserLoggedOut, (req, res) => {
@@ -44,6 +41,7 @@ router.post("/signup", isUserLoggedOut, (req, res) => {
       .render("auth/signup", {
         errorMessage: "Password needs to have at least 10 chars and must contain at least one number, one lowercase and one uppercase letter."
       });
+
     return;
   }
 
@@ -54,7 +52,9 @@ router.post("/signup", isUserLoggedOut, (req, res) => {
     .then((hashedPassword) => {
       // Create a user and save it in the database
       return User.create({
+
         username, email, passwordHash: hashedPassword
+
       });
     })
     .then((user) => {
