@@ -54,7 +54,7 @@ router.post("/signup", isUserLoggedOut, (req, res) => {
     .then((hashedPassword) => {
       // Create a user and save it in the database
       return User.create({
-        username, email, passwordHash: hashedPassword, ressources: { metal: 100, energy: 200 }
+        username, email, passwordHash: hashedPassword
       });
     })
     .then((user) => {

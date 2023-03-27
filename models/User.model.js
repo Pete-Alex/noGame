@@ -38,11 +38,13 @@ const userSchema = new Schema(
         type: Number,
         required: true,
         min: 0,
+        default: 100
       },
       energy: {
         type: Number,
         required: true,
         min: 0,
+        default: 300
       },
     },
   },

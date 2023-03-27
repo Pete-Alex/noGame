@@ -100,6 +100,7 @@ async function seedData() {
         const deletedBuildingType = await BuildingType.deleteMany({});
         console.log(deletedPlanets, deletedBuildingType);
 
+        
         /* Seed Building Type */
         const builingsTypeCreated = await BuildingType.insertMany(builingsType);
         console.log(`Number of buildings type created... ${builingsTypeCreated.length} `);
@@ -129,7 +130,6 @@ async function seedData() {
                 name: planetObj.name,
                 owner: ownerId,
                 buildings: buildingsWithIds,
-                //buildings: planetObj.buildings,
                 harvestedRessources: planetObj.harvestedRessources
             }
 
