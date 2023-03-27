@@ -8,8 +8,9 @@ const buildingTypeSchema = new Schema(
         ressourceType: {
             type: String,
             enum: ["metal", "energy"]
-        }
-        //equation to be created
+        },
+        costEquation: String,
+        productionEquation: String
     },
 );
 

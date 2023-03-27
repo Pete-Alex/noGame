@@ -15,20 +15,27 @@ const PlanetSchema = new Schema(
         },
         buildings: [
             {
-                type: Schema.Types.ObjectId,
-                ref: "Building",
+                buildingTypeId : {
+                    type: Schema.Types.ObjectId,
+                    ref: 'BuildingType'
+                },
+                level: Number,
+                dateSinceLastCollect: {
+                    type: Date,
+                    default: Date.now
+                }
             },
         ],
-        harvestedRessources : {
+        harvestedRessources: {
             metal: {
                 type: Number,
                 required: true,
-                min : 0
+                min: 0
             },
             energy: {
                 type: Number,
                 required: true,
-                min : 0
+                min: 0
             }
         }
     },
