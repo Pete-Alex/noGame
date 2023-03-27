@@ -1,19 +1,15 @@
-const express = require("express");
-const router = express.Router();
-
-// ℹ️ Handles password encryption
-const bcrypt = require("bcrypt");
-const mongoose = require("mongoose");
-
-// How many rounds should bcrypt run the salt (default - 10 rounds)
-const saltRounds = 10;
-
-// Require the User model in order to interact with the database
-const User = require("../models/User.model");
-
-// Require necessary (isLoggedOut and isLiggedIn) middleware in order to control access to specific routes
+const express = require('express');
+const mongoose = require('mongoose');
 const isLoggedOut = require("../middleware/isLoggedOut");
 const isLoggedIn = require("../middleware/isLoggedIn");
+const router = express.Router();
+
+const User = require('../models/User.model');
+const bcryptjs = require('bcryptjs');
+const saltRounds = 10;
+
+
+
 
 // GET /auth/signup
 router.get("/signup", isLoggedOut, (req, res) => {
@@ -30,20 +26,17 @@ router.post("/signup", isLoggedOut, (req, res) => {
       errorMessage:
         "All fields are mandatory. Please provide your username, email and password.",
     });
-
     return;
   }
 
-  if (password.length < 6) {
+  if (password.length < 10) {
     res.status(400).render("auth/signup", {
-      errorMessage: "Your password needs to be at least 6 characters long.",
+      errorMessage: "Your password needs to be at least 10 characters long.",
     });
-
     return;
   }
 
   //   ! This regular expression checks password for special characters and minimum length
-  /*
   const regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
   if (!regex.test(password)) {
     res
@@ -53,10 +46,9 @@ router.post("/signup", isLoggedOut, (req, res) => {
     });
     return;
   }
-  */
 
   // Create a new user - start by hashing the password
-  bcrypt
+  bcryptjs
     .genSalt(saltRounds)
     .then((salt) => bcrypt.hash(password, salt))
     .then((hashedPassword) => {
@@ -97,14 +89,6 @@ router.post("/login", isLoggedOut, (req, res, next) => {
     });
 
     return;
-  }
-
-  // Here we use the same logic as above
-  // - either length based parameters or we check the strength of a password
-  if (password.length < 6) {
-    return res.status(400).render("auth/login", {
-      errorMessage: "Your password needs to be at least 6 characters long.",
-    });
   }
 
   // Search the database for a user with the email submitted in the form
