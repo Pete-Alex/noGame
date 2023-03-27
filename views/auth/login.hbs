@@ -1,24 +1,29 @@
-<div id="login-form">
-  <h2>Log In</h2>
-  <form action="/login" method="POST">
+<main>
+  <form id="login-form" class="form-signin w-50 m-auto">
+    <h1 class="h3 mb-3 fw-normal">Log in</h1>
 
-    <label> Username
-      <input type="text" name="username" placeholder="Your username" />
-    </label>
+    <label class="mb-1" for="email">Email address</label>
+    <input
+      name="email"
+      type="email"
+      class="form-control mb-2"
+      id="floatingInput"
+      placeholder="name@example.com"
+    />
 
-    <label> Email
-      <input type="email" name="email" placeholder="Your email" />
-    </label>
-
-    <label> Password
-      <input type="password" name="password" placeholder="Your password" />
-    </label>
-
-    <button type="submit">Log In</button>
-
-
-    {{#if errorMessage}}
-      <p class="error">{{errorMessage}}</p>
-    {{/if}}
+    <label class="mb-1" for="password">Password</label>
+    <input
+      name="password"
+      type="password"
+      class="form-control mb-2"
+      id="floatingPassword"
+      placeholder="Password"
+    />
+    <button class="w-100 btn btn-primary mt-2 mb-3" type="submit">Sign in</button>
   </form>
-</div>
+  {{#if errorMessage}}
+    <div class="alert alert-danger">
+      {{errorMessage}}
+    </div>
+  {{/if}}
+</main>
