@@ -15,8 +15,9 @@ router.get("/signup", isUserLoggedOut, (req, res) => {
 });
 
 // POST /auth/signup
-router.post("/signup", isUserLoggedOut, (req, res) => {
+router.post("/signup", isUserLoggedOut, (req, res, next) => {
   const { username, email, password } = req.body;
+
   // Check that username, email, and password are provided
   if (username === "" || email === "" || password === "") {
     res.status(400).render("auth/signup", {
@@ -38,7 +39,7 @@ router.post("/signup", isUserLoggedOut, (req, res) => {
   if (!regex.test(password)) {
     res.status(400).render("auth/signup", {
       errorMessage:
-        "Password needs to have at least 10 chars and must contain at least one number, one lowercase and one uppercase letter.",
+        "Password needs to have at least 6 chars and must contain at least one number, one lowercase and one uppercase letter.",
     });
     return;
   }
@@ -49,11 +50,7 @@ router.post("/signup", isUserLoggedOut, (req, res) => {
     .then((salt) => bcryptjs.hash(password, salt))
     .then((hashedPassword) => {
       // Create a user and save it in the database
-      return User.create({
-        username,
-        email,
-        passwordHash: hashedPassword,
-      });
+      return User.create({ username, email, password: hashedPassword });
     })
     .then((user) => {
       res.redirect("/login");
@@ -79,10 +76,10 @@ router.get("/login", isUserLoggedOut, (req, res) => {
 
 // POST /auth/login
 router.post("/login", isUserLoggedOut, (req, res, next) => {
-  const { username, email, password } = req.body;
+  const { email, password } = req.body;
 
   // Check that username, email, and password are provided
-  if (username === "" || email === "" || password === "") {
+  if (email === "" || password === "") {
     res.status(400).render("auth/login", {
       errorMessage:
         "All fields are mandatory. Please provide username, email and password.",
@@ -117,10 +114,13 @@ router.post("/login", isUserLoggedOut, (req, res, next) => {
           req.session.currentUser = user.toObject();
           // Remove the password field
           delete req.session.currentUser.password;
-
+          console.log("done with login!");
           res.redirect("/");
         })
-        .catch((err) => next(err)); // In this case, we send error handling to the error handling middleware.
+        .catch((err) => {
+          console.log("Could not sign up: ", err);
+          next(err);
+        }); // In this case, we send error handling to the error handling middleware.
     })
     .catch((err) => next(err));
 });

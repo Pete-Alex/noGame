@@ -15,23 +15,27 @@
           placeholder="Search..."
           aria-label="Search"
         />
-        <button class="btn btn-outline-primary" type="" submit>
+        <button class="btn btn-outline-primary" type="submit">
           {{icon "search"}}
         </button>
       </form>
+      {{#if user}}
+        <div class="text-end">
+          <form action="/logout">
+            <button type="submit" class="btn btn-secondary">Log out</button>
+          </form>
+          <a href="#" type="button" class="btn btn-primary">
+            {{icon "user"}}
+          </a>
+        </div>
 
-      <div class="text-end">
-        <button type="button" class="btn btn-primary">Login</button>
-      </div>
+      {{else}}
 
-      <div class="text-end">
-        <form action="/logout">
-          <button type="submit" class="btn btn-secondary">Log out</button>
-        </form>
-        <a href="#" type="button" class="btn btn-primary">
-          {{icon "user"}}
-        </a>
-      </div>
+        <div class="text-end">
+          <a class="btn btn-primary" href="/login">Log in</a>
+        </div>
+
+      {{/if}}
 
     </div>
   </div>

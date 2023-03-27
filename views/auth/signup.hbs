@@ -1,5 +1,10 @@
 <main>
-  <form id="signup-form" class="form-signup w-50 m-auto">
+  <form
+    action="/signup"
+    method="POST"
+    id="signup-form"
+    class="form-signup w-50 m-auto"
+  >
     <h1 class="h3 mb-3 fw-normal">Sign up for an account</h1>
 
     <label class="mb-1" for="userName">User Name</label>
@@ -25,7 +30,7 @@
       class="form-control mb-2"
       placeholder="Password"
     />
-    <button class="w-100 btn btn-primary mt-2 mb-3" type="submit">Sign in</button>
+    <button class="w-100 btn btn-primary mt-2 mb-3" type="submit">Sign up</button>
   </form>
   {{#if errorMessage}}
     <div class="alert alert-danger">

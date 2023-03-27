@@ -1,22 +1,25 @@
-<div class="container my-5">
-  <div class="p-5 text-center bg-body-tertiary rounded-3">
-    <h1 class="text-body-emphasis"><h1>Welcome to {{appTitle}} 🚀</h1></h1>
-    <p class="col-lg-8 mx-auto fs-5 text-muted">
-      NoGame is the ultimate Lorem ipsum dolor sit amet consectetur adipisicing
-      elit. Commodi deserunt maiores placeat ullam magni dolores quod nesciunt
-      temporibus ducimus mollitia soluta, aperiam beatae omnis ratione officiis
-      consequuntur sunt provident aliquid?
-    </p>
-    <div class="d-inline-flex gap-2 mb-5">
-      <button
-        class="d-inline-flex align-items-center btn btn-primary btn-lg px-4"
-        type="button"
-      >Register
-        {{icon "arrow-right"}}
-      </button>
-      <button class="btn btn-outline-secondary btn-lg px-4" type="button">
-        Log in
-      </button>
+<main class="container my-5">
+  {{#if user}}
+    <h1>Hello, {{user.username}}</h1>
+  {{else}}
+    <div class="p-5 text-center bg-body-tertiary rounded-3">
+      <h1 class="text-body-emphasis"><h1>Welcome to {{appTitle}} 🚀</h1></h1>
+      <p class="col-lg-8 mx-auto fs-5 text-muted">
+        NoGame is the ultimate Lorem ipsum dolor sit amet consectetur
+        adipisicing elit. Commodi deserunt maiores placeat ullam magni dolores
+        quod nesciunt temporibus ducimus mollitia soluta, aperiam beatae omnis
+        ratione officiis consequuntur sunt provident aliquid?
+      </p>
+      <div class="d-inline-flex gap-2 mb-5">
+        <a
+          href="/signup"
+          class="d-inline-flex align-items-center btn btn-primary btn-lg px-4"
+        >
+          Register
+          {{icon "arrow-right"}}
+        </a>
+        <a href="/login" class="btn btn-outline-primary btn-lg px-4">Log in</a>
+      </div>
     </div>
-  </div>
-</div>
+  {{/if}}
+</main>
