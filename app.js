@@ -17,15 +17,11 @@ hbs.registerPartials(__dirname + "/views/partials");
 
 // icon helper
 const feather = require("feather-icons");
+
 hbs.registerHelper("icon", function (iconName) {
   iconName = iconName.toString();
 
   return new hbs.SafeString(feather.icons[iconName].toSvg());
-});
-
-hbs.registerHelper("stupid", function (input) {
-  input = input.toString();
-  return new hbs.SafeString(` <h1>${input}</h1> `);
 });
 
 //
