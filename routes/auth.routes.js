@@ -20,7 +20,6 @@ router.get("/signup", isUserLoggedOut, (req, res) => {
 // POST /auth/signup
 router.post("/signup", isUserLoggedOut, (req, res) => {
   const { username, email, password } = req.body;
-
   // Check that username, email, and password are provided
   if (username === "" || email === "" || password === "") {
     res.status(400).render("auth/signup", {
@@ -43,21 +42,23 @@ router.post("/signup", isUserLoggedOut, (req, res) => {
     res
       .status(400)
       .render("auth/signup", {
-        errorMessage: "Password needs to have at least 6 chars and must contain at least one number, one lowercase and one uppercase letter."
-    });
+        errorMessage: "Password needs to have at least 10 chars and must contain at least one number, one lowercase and one uppercase letter."
+      });
     return;
   }
 
   // Create a new user - start by hashing the password
   bcryptjs
     .genSalt(saltRounds)
-    .then((salt) => bcrypt.hash(password, salt))
+    .then((salt) => bcryptjs.hash(password, salt))
     .then((hashedPassword) => {
       // Create a user and save it in the database
-      return User.create({ username, email, password: hashedPassword });
+      return User.create({
+        username, email, passwordHash: hashedPassword, ressources: { metal: 100, energy: 200 }
+      });
     })
     .then((user) => {
-      res.redirect("/auth/login");
+      res.redirect("/login");
     })
     .catch((error) => {
       if (error instanceof mongoose.Error.ValidationError) {
@@ -104,8 +105,8 @@ router.post("/login", isUserLoggedOut, (req, res, next) => {
       }
 
       // If user is found based on the username, check if the in putted password matches the one saved in the database
-      bcrypt
-        .compare(password, user.password)
+      bcryptjs
+        .compare(password, user.passwordHash)
         .then((isSamePassword) => {
           if (!isSamePassword) {
             res
