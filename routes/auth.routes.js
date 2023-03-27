@@ -79,10 +79,10 @@ router.get("/login", isUserLoggedOut, (req, res) => {
 
 // POST /auth/login
 router.post("/login", isUserLoggedOut, (req, res, next) => {
-  const { username, email, password } = req.body;
+  const {email, password } = req.body;
 
   // Check that username, email, and password are provided
-  if (username === "" || email === "" || password === "") {
+  if (email === "" || password === "") {
     res.status(400).render("auth/login", {
       errorMessage:
         "All fields are mandatory. Please provide username, email and password.",

@@ -120,7 +120,7 @@ async function seedData() {
                 const buildingId = buildingdetails._id;
 
                 const newBuilding = {
-                    BuildingTypeId: buildingId,
+                    buildingTypeId: buildingId,
                     level: buildingObj.level
                 }
                 buildingsWithIds.push(newBuilding);

@@ -17,9 +17,11 @@ router.get('/planet/:planetId', (req, res, next) => {
   const planetId = req.params.planetId;
 
   Planet.findById(planetId)
-    .populate("buildings.BuildingTypeId")
-    .then((response) => {     
-      console.log(response);
+    .populate("buildings.buildingTypeId")
+    .then((response) => {    
+      var someDate = new Date(response.buildings[0].dateSinceLastCollect);
+      someDate = someDate.getTime();
+      console.log(someDate);
       res.render("planet-detail", response);
     })
     .catch(e => {
