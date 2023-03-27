@@ -39,8 +39,9 @@ router.post("/signup", isUserLoggedOut, (req, res, next) => {
   if (!regex.test(password)) {
     res.status(400).render("auth/signup", {
       errorMessage:
-        "Password needs to have at least 6 chars and must contain at least one number, one lowercase and one uppercase letter.",
+        "Password needs to have at least 10 chars and must contain at least one number, one lowercase and one uppercase letter.",
     });
+
     return;
   }
 
@@ -50,7 +51,11 @@ router.post("/signup", isUserLoggedOut, (req, res, next) => {
     .then((salt) => bcryptjs.hash(password, salt))
     .then((hashedPassword) => {
       // Create a user and save it in the database
-      return User.create({ username, email, password: hashedPassword });
+      return User.create({
+        username,
+        email,
+        passwordHash: hashedPassword,
+      });
     })
     .then((user) => {
       res.redirect("/login");
