@@ -21,10 +21,10 @@
 <p>cost metal: {{this.cost.metal}}</p>
 <p>cost energy: {{this.cost.energy}}</p>
 {{#if ../isCurrentUserOwnPlanet}}
-<form action="" method="POST">
+<form action="/buildings/{{this.id}}/level-up" method="POST">
     <button type="submit" class="btn btn-secondary">level up</button>
 </form>
-<form action="" method="POST">
+<form action="/buildings/{{this.id}}/harvest" method="POST">
     <button type="submit" class="btn btn-secondary">harvest</button>
 </form>
 <form action="" method="POST">

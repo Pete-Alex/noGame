@@ -28,6 +28,7 @@ function displayPlanetDetail(sessionUser, databaseReponse) {
         const productionEquation = eval(`${element.buildingTypeId.productionEquation}(${element.level})`);
         const costEquation = eval(`${element.buildingTypeId.costEquation}(${element.level})`);
         const newBuilding = {
+            id: element._id.toString(),
             name: element.buildingTypeId.name,
             description: element.buildingTypeId.description,
             level: element.level,

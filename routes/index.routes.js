@@ -95,5 +95,9 @@ router.post("/planet/:planetId/new-building", (req, res, next) => {
     });
 });
 
+router.post("/buildings/:buildingId/harvest", (req, res, next) => {
+  const buildingId = req.params.buildingId;
+
+});
 
 module.exports = router;
