@@ -37,7 +37,8 @@ const PlanetSchema = new Schema(
                 required: true,
                 min: 0
             }
-        }
+        },
+        image: String,
     },
     {
       // this second object adds extra properties: `createdAt` and `updatedAt`

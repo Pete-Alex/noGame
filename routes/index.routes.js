@@ -11,7 +11,21 @@ const router = express.Router();
 
 /* GET home page */
 router.get("/", (req, res, next) => {
-  res.render("index", { user: req.session.currentUser });
+  if (req.session.currentUser != undefined) {
+    User.findById(req.session.currentUser._id)
+      .populate("planetListOwned")
+      .then((response) => {
+        //console.log(response);
+        console.log(response.planetListOwned[0].image)
+        res.render("index", { user: req.session.currentUser, userData: response });
+      })
+      .catch((e) => {
+        console.log("error getting user", e);
+        next(e);
+      });
+  } else{
+    res.render("index", { user: req.session.currentUser });
+  }
 });
 
 // GET planet by id

@@ -5,7 +5,7 @@
     <div class="planetList">
       <h2 class="h2 mb-3">Your Planets</h2>
       <div class="row align-items-stretch">
-        {{#each user.planetListOwned}}
+        {{#each userData.planetListOwned}}
 
           <div class="col-12 col-md-4">
 
@@ -21,7 +21,7 @@
                     {{returnLength this.buildings}}
                   </small>
                   <a
-                    href="/planet/:{{this._id}}"
+                    href="/planet/{{this._id}}"
                     type="button"
                     class="btn btn-sm btn-outline-secondary stretched-link"
                   >View</a>
@@ -51,7 +51,6 @@
         </div>
       </div>
     </div>
-    {{log user.planetListOwned}}
   {{else}}
     <div class="p-5 text-center bg-body-tertiary rounded-3">
       <h1 class="text-body-emphasis"><h1>Welcome to {{appTitle}} 🚀</h1></h1>
