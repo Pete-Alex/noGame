@@ -1,11 +1,40 @@
-<h1>{{planetInfo.name}}</h2>
+{{#if ischangeName}}
+<form action="/planet/{{planetInfo._id}}/change-name" method="POST">
+    <input type="text" name="name" value="{{planetInfo.name}}" />
+    <button type="submit" class="btn btn-secondary">change name</button>
+</form>
+{{else}}
+<h2>{{planetInfo.name}}</h2>
+{{/if}}
+
+
 <p>Owner : {{planetInfo.owner.username}}</p>
+{{#if isCurrentUserOwnPlanet}}
+<a href="?action=changeName" class="btn btn-secondary">change planet name</a>
+{{/if}}
 {{#each infoBuildings}}
-    <h3>{{this.name}}</h3>
-    <p>{{this.description}}</p>
-    <p>level: {{this.level}}</p>
-    <p>production metal: {{this.production.metal}}</p>
-    <p>production energy: {{this.production.energy}}</p>
-    <p>cost metal: {{this.cost.metal}}</p>
-    <p>cost energy: {{this.cost.energy}}</p>
+<h3>{{this.name}}</h3>
+<p>{{this.description}}</p>
+<p>level: {{this.level}}</p>
+<p>production metal: {{this.production.metal}}</p>
+<p>production energy: {{this.production.energy}}</p>
+<p>cost metal: {{this.cost.metal}}</p>
+<p>cost energy: {{this.cost.energy}}</p>
+{{#if ../isCurrentUserOwnPlanet}}
+<form action="" method="POST">
+    <button type="submit" class="btn btn-secondary">level up</button>
+</form>
+<form action="" method="POST">
+    <button type="submit" class="btn btn-secondary">harvest</button>
+</form>
+<form action="" method="POST">
+    <button type="submit" class="btn btn-secondary">destroy</button>
+</form>
+{{/if}}
+{{else}}
+<p>Your planet doesn’t have any buildings.<br>
+    Create your first one.</p>
 {{/each}}
+{{#if isCurrentUserOwnPlanet}}
+<a href="/planet/{{planetInfo._id}}/new-building" class="btn btn-secondary">add New Building</a>
+{{/if}}
