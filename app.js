@@ -1,8 +1,8 @@
 require("dotenv").config(); // ℹ️ Gets access to environment variables/settings
 require("./db"); // ℹ️ Connects to the database
 const express = require("express"); // Handles http requests (express is node js framework)
-const hbs = require("hbs"); // Handles the handlebars
 const app = express();
+const hbs = require("hbs"); // Handles the handlebars
 
 require("./config")(app); // ℹ️ This function is getting exported from the config folder. It runs most pieces of middleware
 require("./config/session.config")(app);
@@ -22,6 +22,10 @@ hbs.registerHelper("icon", function (iconName) {
   iconName = iconName.toString();
 
   return new hbs.SafeString(feather.icons[iconName].toSvg());
+});
+
+hbs.registerHelper("returnLength", function (array) {
+  return array.length;
 });
 
 //

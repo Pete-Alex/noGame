@@ -1,8 +1,8 @@
-const express = require('express');
+const express = require("express");
 
-const BuildingType = require('../models/BuildingType.model');
-const Planet = require('../models/Planet.model');
-const User = require('../models/User.model');
+const BuildingType = require("../models/BuildingType.model");
+const Planet = require("../models/Planet.model");
+const User = require("../models/User.model");
 
 const { gapTimeCalculation, checkPlanetUser, displayPlanetDetail } = require('../utils/renderPlanet.js');
 const { costMine, productionMine, costPowerPlant, productionPowerPlant } = require('../utils/buildingTypeEquation.js');
@@ -14,7 +14,7 @@ router.get("/", (req, res, next) => {
   res.render("index", { user: req.session.currentUser });
 });
 
-
+// GET planet by id
 router.get('/planet/:planetId', (req, res, next) => {
   let ischangeName = false;
   const planetId = req.params.planetId;
@@ -36,7 +36,7 @@ router.get('/planet/:planetId', (req, res, next) => {
         ischangeName
       });
     })
-    .catch(e => {
+    .catch((e) => {
       console.log("error getting the planet", e);
       next(e);
     });
