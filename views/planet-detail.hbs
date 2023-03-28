@@ -1,1 +1,11 @@
-<h1>{{name}}</h2>
+<h1>{{planetInfo.name}}</h2>
+<p>Owner : {{planetInfo.owner.username}}</p>
+{{#each infoBuildings}}
+    <h3>{{this.name}}</h3>
+    <p>{{this.description}}</p>
+    <p>level: {{this.level}}</p>
+    <p>production metal: {{this.production.metal}}</p>
+    <p>production energy: {{this.production.energy}}</p>
+    <p>cost metal: {{this.cost.metal}}</p>
+    <p>cost energy: {{this.cost.energy}}</p>
+{{/each}}
