@@ -17,6 +17,23 @@ function checkPlanetUser(sessionUserId, planetUserId) {
     }
 }
 
+function calcBuildingStats(buildingObj) {
+    const productionEquation = eval(`${buildingObj.buildingTypeId.productionEquation}(${buildingObj.level})`);
+    const costEquation = eval(`${buildingObj.buildingTypeId.costEquation}(${buildingObj.level})`);
+    Math.floor()
+    const data = {
+        production: {
+            metal: Math.floor(productionEquation.metal * gapTimeCalculation(buildingObj.dateSinceLastCollect)),
+            energy: Math.floor(productionEquation.energy * gapTimeCalculation(buildingObj.dateSinceLastCollect))
+        },
+        cost: {
+            metal: Math.floor(costEquation.metal),
+            energy: Math.floor(costEquation.energy)
+        }
+    }
+    return data;
+}
+
 function displayPlanetDetail(sessionUser, databaseReponse) {
     let isCurrentUserOwnPlanet = false;
     const infoBuildings = [];
@@ -25,20 +42,19 @@ function displayPlanetDetail(sessionUser, databaseReponse) {
     }
 
     databaseReponse["buildings"].forEach((element) => {
-        const productionEquation = eval(`${element.buildingTypeId.productionEquation}(${element.level})`);
-        const costEquation = eval(`${element.buildingTypeId.costEquation}(${element.level})`);
+        const buildingStats = calcBuildingStats(element);
         const newBuilding = {
             id: element._id.toString(),
             name: element.buildingTypeId.name,
             description: element.buildingTypeId.description,
             level: element.level,
             production: {
-                metal: productionEquation.metal * gapTimeCalculation(element.dateSinceLastCollect),
-                energy: productionEquation.energy * gapTimeCalculation(element.dateSinceLastCollect)
+                metal: buildingStats.production.metal,
+                energy: buildingStats.production.energy
             },
             cost: {
-                metal: costEquation.metal,
-                energy: costEquation.energy
+                metal: buildingStats.cost.metal,
+                energy: buildingStats.cost.energy
             }
         }
         infoBuildings.push(newBuilding);
@@ -50,5 +66,6 @@ function displayPlanetDetail(sessionUser, databaseReponse) {
 module.exports = {
     gapTimeCalculation,
     checkPlanetUser,
+    calcBuildingStats,
     displayPlanetDetail
 };
