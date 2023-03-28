@@ -42,18 +42,43 @@ router.get('/planet/:planetId', (req, res, next) => {
     });
 });
 
-router.post("/planet/:planetId/change-name", (req, res, next) =>{
-  console.log(req.body.name);
+router.post("/planet/:planetId/change-name", (req, res, next) => {
   const newPlanetName = req.body.name;
   const planetId = req.params.planetId;
   Planet.findByIdAndUpdate(planetId, { name: newPlanetName }, { new: true })
-  .then((response) =>{
-    res.redirect(`/planet/${response.id}`); //redirect to book details page
-  })
-  .catch(e => {
-    console.log("error changing planet Name", e);
-    next(e);
-  });
+    .then((response) => {
+      res.redirect(`/planet/${response.id}`);
+    })
+    .catch(e => {
+      console.log("error changing planet Name", e);
+      next(e);
+    });
+});
+
+router.get("/planet/:planetId/new-building", (req, res, next) => {
+  const planetId = req.params.planetId;
+  (async () => {
+    try {
+      const planetObj = await Planet.findById(planetId).populate("owner");
+      const buildingTypesObj = await BuildingType.find();
+      res.render("add-new-building", { planetInfo: planetObj, buildingTypesInfo: buildingTypesObj });
+    } catch (e) {
+      console.log("error", e)
+    }
+  })();
+});
+
+router.post("/planet/:planetId/new-building", (req, res, next) => {
+  const newBuilding = req.body.building;
+  const planetId = req.params.planetId;
+  Planet.findByIdAndUpdate(planetId, { $push: { "buildings": { buildingTypeId: newBuilding, level: 1 } } }, { new: true })
+    .then((response) => {
+      res.redirect(`/planet/${response.id}`);
+    })
+    .catch(e => {
+      console.log("error adding new building", e);
+      next(e);
+    });
 });
 
 
