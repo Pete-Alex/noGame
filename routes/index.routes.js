@@ -1,11 +1,16 @@
-const express = require('express');
+const express = require("express");
 
-const BuildingType = require('../models/BuildingType.model');
-const Planet = require('../models/Planet.model');
-const User = require('../models/User.model');
+const BuildingType = require("../models/BuildingType.model");
+const Planet = require("../models/Planet.model");
+const User = require("../models/User.model");
 
-const { gapTimeCalculation } = require('../utils/renderPlanet.js');
-const { costMine, productionMine, costPowerPlant, productionPowerPlant } = require('../utils/buildingTypeEquation.js');
+const { gapTimeCalculation } = require("../utils/renderPlanet.js");
+const {
+  costMine,
+  productionMine,
+  costPowerPlant,
+  productionPowerPlant,
+} = require("../utils/buildingTypeEquation.js");
 
 const router = express.Router();
 
@@ -14,8 +19,8 @@ router.get("/", (req, res, next) => {
   res.render("index", { user: req.session.currentUser });
 });
 
-
-router.get('/planet/:planetId', (req, res, next) => {
+// GET planet by id
+router.get("/planet/:planetId", (req, res, next) => {
   const planetId = req.params.planetId;
   const infoBuildings = [];
   Planet.findById(planetId)
@@ -24,8 +29,12 @@ router.get('/planet/:planetId', (req, res, next) => {
     .then((response) => {
       response["buildings"].forEach((element) => {
         //console.log(`element.buildingTypeId.costEquation: ${element.buildingTypeId.costEquation}`)
-        const productionEquation = eval(`${element.buildingTypeId.productionEquation}(${element.level})`);
-        const costEquation = eval(`${element.buildingTypeId.costEquation}(${element.level})`);
+        const productionEquation = eval(
+          `${element.buildingTypeId.productionEquation}(${element.level})`
+        );
+        const costEquation = eval(
+          `${element.buildingTypeId.costEquation}(${element.level})`
+        );
         //console.log(productionEquation);
 
         const newBuilding = {
@@ -33,26 +42,33 @@ router.get('/planet/:planetId', (req, res, next) => {
           description: element.buildingTypeId.description,
           level: element.level,
           production: {
-            metal: productionEquation.metal * gapTimeCalculation(element.dateSinceLastCollect),
-            energy: productionEquation.energy * gapTimeCalculation(element.dateSinceLastCollect)
+            metal:
+              productionEquation.metal *
+              gapTimeCalculation(element.dateSinceLastCollect),
+            energy:
+              productionEquation.energy *
+              gapTimeCalculation(element.dateSinceLastCollect),
           },
           cost: {
             metal: costEquation.metal,
-            energy: costEquation.energy
-          }
-        }
+            energy: costEquation.energy,
+          },
+        };
         console.log(newBuilding);
         infoBuildings.push(newBuilding);
       });
 
-
       //console.log(gapCalculation(response.buildings[0].dateSinceLastCollect));
-      res.render("planet-detail", { user: req.session.currentUser, planetInfo: response, infoBuildings: infoBuildings });
+      res.render("planet-detail", {
+        user: req.session.currentUser,
+        planetInfo: response,
+        infoBuildings: infoBuildings,
+      });
     })
-    .catch(e => {
+    .catch((e) => {
       console.log("error getting the planet", e);
       next(e);
     });
-})
+});
 
 module.exports = router;

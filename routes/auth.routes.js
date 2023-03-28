@@ -98,6 +98,7 @@ router.post("/login", isUserLoggedOut, (req, res, next) => {
 
   // Search the database for a user with the email submitted in the form
   User.findOne({ email })
+    .populate("planetListOwned")
     .then((user) => {
       // If the user isn't found, send an error message that user provided wrong credentials
       if (!user) {
@@ -122,7 +123,7 @@ router.post("/login", isUserLoggedOut, (req, res, next) => {
           req.session.currentUser = user.toObject();
           // Remove the password field
           delete req.session.currentUser.password;
-          console.log("done with login!");
+          // console.log("done with login!");
           res.redirect("/");
         })
         .catch((err) => {

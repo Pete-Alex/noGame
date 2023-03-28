@@ -1,7 +1,7 @@
 <header class="p-3">
   <div class="container">
     <div
-      class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start"
+      class="d-flex flex-wrap align-items-center justify-content-between justify-content-lg-start"
     >
       <a href="/" class="nav-link navbar-brand px-2">
         <h1>
@@ -15,28 +15,24 @@
           placeholder="Search..."
           aria-label="Search"
         />
-        <button class="btn btn-outline-primary" type="submit">
+        <button class="btn btn-outline-primary ms-1" type="submit">
           {{icon "search"}}
         </button>
       </form>
       {{#if user}}
-        <div class="text-end">
-          <form action="/logout">
+        <div class="text-end d-flex">
+          <form class="mb-0 me-1" action="/logout">
             <button type="submit" class="btn btn-secondary">Log out</button>
           </form>
           <a href="#" type="button" class="btn btn-primary">
             {{icon "user"}}
           </a>
         </div>
-
       {{else}}
-
         <div class="text-end">
           <a class="btn btn-primary" href="/login">Log in</a>
         </div>
-
       {{/if}}
-
     </div>
   </div>
 </header>

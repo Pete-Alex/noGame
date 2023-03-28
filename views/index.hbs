@@ -1,6 +1,57 @@
 <main class="container my-5">
   {{#if user}}
-    <h1>Hello, {{user.username}}</h1>
+    <h1 class="h1 mb-4">Hello, {{user.username}}</h1>
+
+    <div class="planetList">
+      <h2 class="h2 mb-3">Your Planets</h2>
+      <div class="row align-items-stretch">
+        {{#each user.planetListOwned}}
+
+          <div class="col-12 col-md-4">
+
+            <div class="card shadow-sm">
+              <div class="img-container">
+                <img class="card-img-top" src="/images/{{this.image}}" alt="" />
+              </div>
+              <div class="card-body">
+                <h3 class="card-title">{{this.name}}</h3>
+                <div class="d-flex justify-content-between align-items-center">
+                  <small class="text-body-secondary">
+                    Buildings:
+                    {{returnLength this.buildings}}
+                  </small>
+                  <a
+                    href="/planet/:{{this._id}}"
+                    type="button"
+                    class="btn btn-sm btn-outline-secondary stretched-link"
+                  >View</a>
+
+                </div>
+              </div>
+
+            </div>
+          </div>
+        {{/each}}
+        <div class="col-12 col-md-4 d-flex flex-column justify-content-center">
+
+          <div class="card border-0">
+            <div class="card-body text-center">
+              <h3 class="card-title">Create New Planet</h3>
+              <div class="d-flex justify-content-center">
+                <a
+                  href="/planet/create"
+                  type="button"
+                  class="btn btn-lg btn-pill btn-primary stretched-link"
+                >{{icon "plus"}}</a>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    {{log user.planetListOwned}}
   {{else}}
     <div class="p-5 text-center bg-body-tertiary rounded-3">
       <h1 class="text-body-emphasis"><h1>Welcome to {{appTitle}} 🚀</h1></h1>
