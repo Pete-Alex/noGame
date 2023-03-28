@@ -4,7 +4,7 @@ const BuildingType = require("../models/BuildingType.model");
 const Planet = require("../models/Planet.model");
 const User = require("../models/User.model");
 
-const { gapTimeCalculation, checkPlanetUser, displayPlanetDetail } = require('../utils/renderPlanet.js');
+const { gapTimeCalculation, checkPlanetUser, calcBuildingStats, displayPlanetDetail } = require('../utils/renderPlanet.js');
 const { costMine, productionMine, costPowerPlant, productionPowerPlant } = require('../utils/buildingTypeEquation.js');
 
 const router = express.Router();
@@ -15,15 +15,13 @@ router.get("/", (req, res, next) => {
     User.findById(req.session.currentUser._id)
       .populate("planetListOwned")
       .then((response) => {
-        //console.log(response);
-        console.log(response.planetListOwned[0].image)
         res.render("index", { user: req.session.currentUser, userData: response });
       })
       .catch((e) => {
         console.log("error getting user", e);
         next(e);
       });
-  } else{
+  } else {
     res.render("index", { user: req.session.currentUser });
   }
 });
@@ -97,6 +95,24 @@ router.post("/planet/:planetId/new-building", (req, res, next) => {
 
 router.post("/buildings/:buildingId/harvest", (req, res, next) => {
   const buildingId = req.params.buildingId;
+  console.log(buildingId);
+  (async () => {
+    try {
+      const planetObj = await Planet.findOne({ "buildings._id": buildingId }).populate("buildings.buildingTypeId");
+      const buildingIndex = planetObj.buildings.findIndex((element) => element._id.toString() === buildingId);
+      const statsBuilding = calcBuildingStats(planetObj.buildings[buildingIndex])
+      req.session.currentUser.ressources.metal += statsBuilding.production.metal;
+      req.session.currentUser.ressources.energy += statsBuilding.production.energy;
+
+      const planetObjUpadted = await Planet.findOneAndUpdate({ "buildings._id": buildingId }, { $currentDate: { 'buildings.$.dateSinceLastCollect': true } }, { new: true });
+
+      const userUpadted = await User.findByIdAndUpdate(req.session.currentUser._id, { $set: { "ressources.metal": req.session.currentUser.ressources.metal, "ressources.energy": req.session.currentUser.ressources.energy } }, { new: true })
+
+      res.redirect(`/planet/${planetObjUpadted._id}`)
+    } catch (e) {
+      console.log("error", e)
+    }
+  })();
 
 });
 
