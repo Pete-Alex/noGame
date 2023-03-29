@@ -30,12 +30,14 @@ const PlanetSchema = new Schema(
             metal: {
                 type: Number,
                 required: true,
-                min: 0
+                min: 0,
+                default:0
             },
             energy: {
                 type: Number,
                 required: true,
-                min: 0
+                min: 0,
+                default:0
             }
         },
         image: String,

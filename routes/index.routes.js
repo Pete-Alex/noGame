@@ -21,6 +21,10 @@ const router = express.Router();
 
 /* GET home page */
 router.get("/", (req, res, next) => {
+  let isCreatePlanet = false;
+  if (req.query.action === "createPlanet") {
+    isCreatePlanet = true;
+  }
   if (req.session.currentUser != undefined) {
     User.findById(req.session.currentUser._id)
       .populate("planetListOwned")
@@ -28,6 +32,7 @@ router.get("/", (req, res, next) => {
         res.render("index", {
           user: req.session.currentUser,
           userData: response,
+          isCreatePlanet,
         });
       })
       .catch((e) => {
@@ -39,6 +44,30 @@ router.get("/", (req, res, next) => {
   }
 });
 
+router.post("/create-planet", (req, res, next) => {
+  const newPlanetDetail = {
+    name: req.body.planetName,
+    owner: req.session.currentUser._id,
+    buildings: [],
+    image: `planet-${Math.floor(Math.random() * (11 - 1 + 1) + 1)}.png`,
+  };
+  Planet.create(newPlanetDetail)
+    .then((response) => {
+      return User.findByIdAndUpdate(
+        req.session.currentUser._id,
+        { $push: { planetListOwned: response._id } },
+        { new: true }
+      );
+    })
+    .then((response) => {
+      res.redirect(`/`);
+    })
+    .catch((e) => {
+      console.log("error creating new planet", e);
+      next(e);
+    });
+});
+
 // GET planet by id
 router.get("/planet/:planetId", (req, res, next) => {
   let data = {
@@ -46,8 +75,6 @@ router.get("/planet/:planetId", (req, res, next) => {
     noLevelup: false,
   };
 
-  // let ischangeName = false;
-  // let noLevelup = false;
   const planetId = req.params.planetId;
   Planet.findById(planetId)
     .populate("buildings.buildingTypeId")

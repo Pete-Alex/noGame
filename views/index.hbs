@@ -37,23 +37,43 @@
           <div class="shadow-sm mb-2 bg-dark border-0">
             <div class="card-body text-center">
               <h3 class="card-title">Create New Planet</h3>
-              <div class="d-flex justify-content-center">
-                <a
-                  href="/planet/create"
-                  type="button"
-                  class="btn btn-lg btn-pill btn-primary stretched-link"
-                >{{icon "plus"}}</a>
-
-              </div>
+              {{#if isCreatePlanet}}
+                <form
+                  class="mx-2 mb-0 d-flex"
+                  method="POST"
+                  action="create-planet"
+                >
+                  <input
+                    type="search"
+                    class="form-control mr-1"
+                    placeholder="choose a name"
+                    name="planetName"
+                  />
+                  <button class="btn btn-outline-primary ms-1" type="submit">
+                    Create Planet
+                  </button>
+                </form>
+              {{else}}
+                <div class="d-flex justify-content-center">
+                  <button
+                    data-bs-toggle="modal"
+                    data-bs-target="#create-planet-modal"
+                    id="create-planet-btn"
+                    role="button"
+                    class="btn btn-lg btn-pill btn-primary stretched-link"
+                  >{{icon "plus"}}</button>
+                </div>
+              {{/if}}
             </div>
-
           </div>
         </div>
       </div>
     </div>
   {{else}}
     <div class="p-5 text-center bg-body-tertiary rounded-3">
-      <h1 class="text-body-emphasis"><h1>Welcome to {{appTitle}} 🚀</h1></h1>
+      <h1 class="text-body-emphasis">
+        <h1>Welcome to {{appTitle}} 🚀</h1>
+      </h1>
       <p class="col-lg-8 mx-auto fs-5 text-muted">
         NoGame is the ultimate Lorem ipsum dolor sit amet consectetur
         adipisicing elit. Commodi deserunt maiores placeat ullam magni dolores
@@ -72,4 +92,51 @@
       </div>
     </div>
   {{/if}}
+
+  {{#if user}}
+    <div class="modal-dialog modal-sm">
+      <div id="create-planet-modal" class="modal modal-sm" tabindex="-1">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Add new building</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <form method="POST" action="/create-planet">
+              <div class="modal-body">
+                <label class="mb-1" for="planetName">
+                  Choose a name for your new planet
+                </label>
+                <input
+                  name="planetName"
+                  class="form-control"
+                  type="text"
+                  placeholder="Choose a name"
+                />
+              </div>
+              <div class="modal-footer">
+                <div class="btn-group">
+                  <button
+                    type="button"
+                    class="btn btn-outline-secondary"
+                    data-bs-dismiss="modal"
+                  >Cancel</button>
+                  <button
+                    class="btn btn-outline-primary"
+                    type="submit"
+                  >Create</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  {{/if}}
+
 </main>

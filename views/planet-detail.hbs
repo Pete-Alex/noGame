@@ -66,18 +66,21 @@
                 <thead>
                   <tr>
                     <th scope="col"></th>
+                    <th scope="col"></th>
                     <th scope="col">Costs</th>
                     <th scope="col">Production</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <th class="text-start" scope="row">Metal <span class="text-secondary icon-sm">{{icon "box"}}</span></th>
+                    <th  scope="row">Metal</th>
+                    <td><span class="text-secondary icon-sm">{{icon "box"}}</span></td>
                     <td>{{floorNumber this.cost.metal}}</td>
                     <td>{{floorNumber this.production.metal}}</td>
                   </tr>
                   <tr>
-                    <th class="text-start" scope="row">Energy <span class="text-secondary icon-sm">{{icon "zap"}}</span></th>
+                    <th  scope="row">Energy</th>
+                    <td><span class="text-secondary icon-sm">{{icon "zap"}}</span></td>
                     <td>{{floorNumber this.cost.energy}}</td>
                     <td>{{floorNumber this.production.energy}}</td>
                   </tr>
@@ -161,7 +164,6 @@
                   Choose a type of building
                 </label>
                 <select class="form-select" name="building">
-                  {{log buildingTypesInfo}}
                   {{#each buildingTypesInfo}}
                     <option value={{this._id}}>{{this.name}}</option>
                   {{/each}}
