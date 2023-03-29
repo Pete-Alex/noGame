@@ -11,11 +11,16 @@ const router = express.Router();
 
 /* GET home page */
 router.get("/", (req, res, next) => {
+  let isCreatePlanet = false;
+  if (req.query.action === "createPlanet") {
+    isCreatePlanet = true
+  }
   if (req.session.currentUser != undefined) {
     User.findById(req.session.currentUser._id)
       .populate("planetListOwned")
       .then((response) => {
-        res.render("index", { user: req.session.currentUser, userData: response });
+        console.log(response);
+        res.render("index", { user: req.session.currentUser, userData: response, isCreatePlanet });
       })
       .catch((e) => {
         console.log("error getting user", e);
@@ -24,6 +29,26 @@ router.get("/", (req, res, next) => {
   } else {
     res.render("index", { user: req.session.currentUser });
   }
+});
+
+router.post("/create-planet", (req, res, next) => {
+  const newPlanetDetail = {
+    name: req.body.planetName,
+    owner: req.session.currentUser._id,
+    buildings: [],
+    image: `planet-${Math.floor(Math.random() * (11 - 1 + 1) + 1)}.png`
+  }
+  Planet.create(newPlanetDetail)
+    .then((response) => {
+      return User.findByIdAndUpdate(req.session.currentUser._id,{ $push: { planetListOwned: response._id } }, { new: true })
+    })
+    .then((response) =>{
+      res.redirect(`/`);
+    })
+    .catch(e => {
+      console.log("error creating new planet", e);
+      next(e);
+    });
 });
 
 // GET planet by id
@@ -131,7 +156,7 @@ router.post("/buildings/:buildingId/level-up", (req, res, next) => {
 
         const planetObjUpadted = await Planet.findOneAndUpdate({ "buildings._id": buildingId }, { $inc: { 'buildings.$.level': 1 } }, { new: true });
         const userUpadted = await User.findByIdAndUpdate(req.session.currentUser._id, { $set: { "ressources.metal": req.session.currentUser.ressources.metal, "ressources.energy": req.session.currentUser.ressources.energy } }, { new: true })
-      } else{
+      } else {
         res.redirect(`/planet/${planetObj._id}?errorMessage=noLevelUp`)
       }
       res.redirect(`/planet/${planetObj._id}`)

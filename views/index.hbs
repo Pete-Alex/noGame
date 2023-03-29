@@ -1,75 +1,77 @@
 <main class="container my-4">
   {{#if user}}
-    <h1 class="h1 mb-4">Hello, {{user.username}}</h1>
+  <h1 class="h1 mb-4">Hello, {{user.username}}</h1>
 
-    <div class="planetList">
-      <h2 class="h2 mb-3">Your Planets</h2>
-      <div class="row align-items-stretch">
-        {{#each userData.planetListOwned}}
+  <div class="planetList">
+    <h2 class="h2 mb-3">Your Planets</h2>
+    <div class="row align-items-stretch">
+      {{#each userData.planetListOwned}}
 
-          <div class="col-12 col-md-4">
+      <div class="col-12 col-md-4">
 
-            <div class="card shadow-sm">
-              <div class="img-container">
-                <img class="card-img-top" src="/images/{{this.image}}" alt="" />
-              </div>
-              <div class="card-body">
-                <h3 class="card-title">{{this.name}}</h3>
-                <div class="d-flex justify-content-between align-items-center">
-                  <small class="text-body-secondary">
-                    Buildings:
-                    {{returnLength this.buildings}}
-                  </small>
-                  <a
-                    href="/planet/{{this._id}}"
-                    type="button"
-                    class="btn btn-sm btn-outline-secondary stretched-link"
-                  >View</a>
-
-                </div>
-              </div>
+        <div class="card shadow-sm">
+          <div class="img-container">
+            <img class="card-img-top" src="/images/{{this.image}}" alt="" />
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">{{this.name}}</h3>
+            <div class="d-flex justify-content-between align-items-center">
+              <small class="text-body-secondary">
+                Buildings:
+                {{returnLength this.buildings}}
+              </small>
+              <a href="/planet/{{this._id}}" type="button"
+                class="btn btn-sm btn-outline-secondary stretched-link">View</a>
 
             </div>
           </div>
-        {{/each}}
-        <div class="col-12 col-md-4 d-flex flex-column justify-content-center">
 
-          <div class="card border-0">
-            <div class="card-body text-center">
-              <h3 class="card-title">Create New Planet</h3>
-              <div class="d-flex justify-content-center">
-                <a
-                  href="/planet/create"
-                  type="button"
-                  class="btn btn-lg btn-pill btn-primary stretched-link"
-                >{{icon "plus"}}</a>
+        </div>
+      </div>
+      {{/each}}
+      <div class="col-12 col-md-4 d-flex flex-column justify-content-center">
 
-              </div>
+        <div class="card border-0">
+          <div class="card-body text-center">
+            <h3 class="card-title">Create New Planet</h3>
+            {{log isCreatePlanet}}
+            {{#if isCreatePlanet}}
+            <form class="mx-2 mb-0 d-flex" method="POST" action="create-planet">
+              <input type="search" class="form-control mr-1" placeholder="choose a name" name="planetName" />
+              <button class="btn btn-outline-primary ms-1" type="submit">
+                Create Planet
+              </button>
+            </form>
+            {{else}}
+            <div class="d-flex justify-content-center">
+              <a href="/?action=createPlanet" type="button"
+                class="btn btn-lg btn-pill btn-primary stretched-link">{{icon "plus"}}</a>
             </div>
-
+            {{/if}}
           </div>
+
         </div>
       </div>
     </div>
+  </div>
   {{else}}
-    <div class="p-5 text-center bg-body-tertiary rounded-3">
-      <h1 class="text-body-emphasis"><h1>Welcome to {{appTitle}} 🚀</h1></h1>
-      <p class="col-lg-8 mx-auto fs-5 text-muted">
-        NoGame is the ultimate Lorem ipsum dolor sit amet consectetur
-        adipisicing elit. Commodi deserunt maiores placeat ullam magni dolores
-        quod nesciunt temporibus ducimus mollitia soluta, aperiam beatae omnis
-        ratione officiis consequuntur sunt provident aliquid?
-      </p>
-      <div class="d-inline-flex gap-2 mb-5">
-        <a
-          href="/signup"
-          class="d-inline-flex align-items-center btn btn-primary btn-lg px-4"
-        >
-          Register
-          {{icon "arrow-right"}}
-        </a>
-        <a href="/login" class="btn btn-outline-primary btn-lg px-4">Log in</a>
-      </div>
+  <div class="p-5 text-center bg-body-tertiary rounded-3">
+    <h1 class="text-body-emphasis">
+      <h1>Welcome to {{appTitle}} 🚀</h1>
+    </h1>
+    <p class="col-lg-8 mx-auto fs-5 text-muted">
+      NoGame is the ultimate Lorem ipsum dolor sit amet consectetur
+      adipisicing elit. Commodi deserunt maiores placeat ullam magni dolores
+      quod nesciunt temporibus ducimus mollitia soluta, aperiam beatae omnis
+      ratione officiis consequuntur sunt provident aliquid?
+    </p>
+    <div class="d-inline-flex gap-2 mb-5">
+      <a href="/signup" class="d-inline-flex align-items-center btn btn-primary btn-lg px-4">
+        Register
+        {{icon "arrow-right"}}
+      </a>
+      <a href="/login" class="btn btn-outline-primary btn-lg px-4">Log in</a>
     </div>
+  </div>
   {{/if}}
 </main>
