@@ -19,7 +19,6 @@ router.get("/", (req, res, next) => {
     User.findById(req.session.currentUser._id)
       .populate("planetListOwned")
       .then((response) => {
-        console.log(response);
         res.render("index", { user: req.session.currentUser, userData: response, isCreatePlanet });
       })
       .catch((e) => {
