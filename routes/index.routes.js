@@ -127,8 +127,6 @@ router.post("/buildings/:buildingId/level-up", (req, res, next) => {
       if (statsBuilding.cost.metal <= req.session.currentUser.ressources.metal && statsBuilding.cost.energy <= req.session.currentUser.ressources.energy) {
         req.session.currentUser.ressources.metal -= statsBuilding.cost.metal;
         req.session.currentUser.ressources.energy -= statsBuilding.cost.energy;
-        console.log(req.session.currentUser.ressources.metal);
-        console.log(req.session.currentUser.ressources.energy);
         const planetObjUpadted = await Planet.findOneAndUpdate({ "buildings._id": buildingId }, { $inc: { 'buildings.$.level': 1 } }, { new: true });
         const userUpadted = await User.findByIdAndUpdate(req.session.currentUser._id, { $set: { "ressources.metal": req.session.currentUser.ressources.metal, "ressources.energy": req.session.currentUser.ressources.energy } }, { new: true })
       }
