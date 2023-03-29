@@ -56,13 +56,13 @@
                 alt=""
               />
             </div>
-            <div class="card-body">
+            <div class="card-body text-light">
               <h3 class="card-title">
                 {{this.name}}
                 <span class="text-body-secondary">lv. {{this.level}}</span>
               </h3>
               <p class="card-text">{{this.description}}</p>
-              <table class="table table-sm text-end">
+              <table class="table table-sm text-light text-end">
                 <thead>
                   <tr>
                     <th scope="col"></th>
@@ -74,13 +74,13 @@
                 <tbody>
                   <tr>
                     <th  scope="row">Metal</th>
-                    <td><span class="text-secondary icon-sm">{{icon "box"}}</span></td>
+                    <td><span class="text-info icon-sm">{{icon "box"}}</span></td>
                     <td>{{floorNumber this.cost.metal}}</td>
                     <td>{{floorNumber this.production.metal}}</td>
                   </tr>
                   <tr>
                     <th  scope="row">Energy</th>
-                    <td><span class="text-secondary icon-sm">{{icon "zap"}}</span></td>
+                    <td><span class="text-info icon-sm">{{icon "zap"}}</span></td>
                     <td>{{floorNumber this.cost.energy}}</td>
                     <td>{{floorNumber this.production.energy}}</td>
                   </tr>
@@ -89,6 +89,12 @@
 
               {{#if ../isCurrentUserOwnPlanet}}
                 <div class="btn-container d-flex justify-content-between">
+                  <form action="/buildings/{{this.id}}/destroy" method="POST">
+                    <button
+                      type="submit"
+                      class="btn btn-outline-danger btn-sm"
+                    >destroy</button>
+                  </form>
                   <div class="btn-group">
                     <form
                       action="/buildings/{{this.id}}/level-up"
@@ -96,22 +102,16 @@
                     >
                       <button
                         type="submit"
-                        class="me-1 btn btn-sm btn-outline-secondary"
+                        class="me-1 btn btn-sm btn-outline-info"
                       >Level up</button>
                     </form>
                     <form action="/buildings/{{this.id}}/harvest" method="POST">
                       <button
                         type="submit"
-                        class="btn btn-sm btn-outline-secondary"
+                        class="btn btn-sm btn-outline-info"
                       >Harvest</button>
                     </form>
                   </div>
-                  <form action="/buildings/{{this.id}}/destroy" method="POST">
-                    <button
-                      type="submit"
-                      class="btn btn-outline-danger btn-sm"
-                    >destroy</button>
-                  </form>
                 </div>
               {{/if}}
             </div>
@@ -121,7 +121,7 @@
 
       {{#if isCurrentUserOwnPlanet}}
         <div class="col-12 col-md-4 d-flex flex-column justify-content-center">
-          <div class="card border-0">
+          <div class="shadow-sm mb-2 bg-transparent border-0">
             <div class="card-body text-center">
               <h3 class="card-title">Add new Building</h3>
               <div class="d-flex justify-content-center">
@@ -142,48 +142,49 @@
   </div>
 
   {{#if isCurrentUserOwnPlanet}}
-    <div class="modal-dialog modal-sm">
-      <div id="add-building-modal" class="modal modal-sm" tabindex="-1">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Add new building</h5>
-              <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <form
-              method="POST"
-              action="/planet/{{planetInfo._id}}/new-building"
-            >
-              <div class="modal-body">
-                <label class="mb-1" for="building">
-                  Choose a type of building
-                </label>
-                <select class="form-select" name="building">
-                  {{#each buildingTypesInfo}}
-                    <option value={{this._id}}>{{this.name}}</option>
-                  {{/each}}
-                </select>
-              </div>
-              <div class="modal-footer">
-                <div class="btn-group">
-                  <button
-                    type="button"
-                    class="btn btn-outline-secondary"
-                    data-bs-dismiss="modal"
-                  >Cancel</button>
-                  <button
-                    class="btn btn-outline-primary"
-                    type="submit"
-                  >Add</button>
-                </div>
-              </div>
-            </form>
+    <div id="add-building-modal" class="modal" tabindex="-1">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content bg-secondary">
+          <div class="modal-header">
+            <h5 class="modal-title">Add new building</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
           </div>
+          <form
+            method="POST"
+            action="/planet/{{planetInfo._id}}/new-building"
+          >
+            <div class="modal-body">
+              <label class="mb-1" for="building">
+                Choose a type of building
+              </label>
+              <select 
+                class="form-select bg-dark text-light" 
+                data-bs-theme="dark"
+                name="building">
+                {{#each buildingTypesInfo}}
+                  <option value={{this._id}}>{{this.name}}</option>
+                {{/each}}
+              </select>
+            </div>
+            <div class="modal-footer">
+              <div class="btn-group">
+                <button
+                  type="button"
+                  class="btn btn-outline-warning"
+                  data-bs-dismiss="modal"
+                >Cancel</button>
+                <button
+                  class="btn btn-outline-primary"
+                  type="submit"
+                >Add</button>
+              </div>
+            </div>
+          </form>
         </div>
       </div>
     </div>
