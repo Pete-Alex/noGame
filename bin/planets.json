@@ -1,0 +1,160 @@
+[{
+  "_id": {
+    "$oid": "6421c427f9de0c4633b71f9f"
+  },
+  "name": "Earth",
+  "owner": {
+    "$oid": "64217fdbeb3e7f86c8739e79"
+  },
+  "buildings": [
+    {
+      "buildingTypeId": {
+        "$oid": "6421c426f9de0c4633b71f91"
+      },
+      "level": 5,
+      "_id": {
+        "$oid": "6421c427f9de0c4633b71fa0"
+      },
+      "dateSinceLastCollect": {
+        "$date": "2023-03-27T16:28:23.863Z"
+      }
+    },
+    {
+      "buildingTypeId": {
+        "$oid": "6421c426f9de0c4633b71f92"
+      },
+      "level": 2,
+      "_id": {
+        "$oid": "6421c427f9de0c4633b71fa1"
+      },
+      "dateSinceLastCollect": {
+        "$date": "2023-03-27T16:28:23.863Z"
+      }
+    },
+    {
+      "buildingTypeId": {
+        "$oid": "6421c426f9de0c4633b71f91"
+      },
+      "level": 1,
+      "_id": {
+        "$oid": "6421c427f9de0c4633b71fa2"
+      },
+      "dateSinceLastCollect": {
+        "$date": "2023-03-27T16:28:23.863Z"
+      }
+    }
+  ],
+  "harvestedRessources": {
+    "metal": 100,
+    "energy": 1000
+  },
+  "__v": 0,
+  "createdAt": {
+    "$date": "2023-03-27T16:28:23.877Z"
+  },
+  "updatedAt": {
+    "$date": "2023-03-27T16:28:23.877Z"
+  },
+  "image": "planet-1.png"
+},{
+  "_id": {
+    "$oid": "6421c427f9de0c4633b71fa3"
+  },
+  "name": "Mars",
+  "owner": {
+    "$oid": "642174ceb2e7a26966d04b09"
+  },
+  "buildings": [
+    {
+      "buildingTypeId": {
+        "$oid": "6421c426f9de0c4633b71f91"
+      },
+      "level": 10,
+      "_id": {
+        "$oid": "6421c427f9de0c4633b71fa4"
+      },
+      "dateSinceLastCollect": {
+        "$date": "2023-03-27T16:28:23.867Z"
+      }
+    },
+    {
+      "buildingTypeId": {
+        "$oid": "6421c426f9de0c4633b71f92"
+      },
+      "level": 2,
+      "_id": {
+        "$oid": "6421c427f9de0c4633b71fa5"
+      },
+      "dateSinceLastCollect": {
+        "$date": "2023-03-27T16:28:23.869Z"
+      }
+    }
+  ],
+  "harvestedRessources": {
+    "metal": 500,
+    "energy": 5000
+  },
+  "__v": 0,
+  "createdAt": {
+    "$date": "2023-03-27T16:28:23.877Z"
+  },
+  "updatedAt": {
+    "$date": "2023-03-27T16:28:23.877Z"
+  },
+  "image": "planet-2.png"
+},{
+  "_id": {
+    "$oid": "6421c427f9de0c4633b71fa6"
+  },
+  "name": "Pluton",
+  "owner": {
+    "$oid": "64217fdbeb3e7f86c8739e79"
+  },
+  "buildings": [
+    {
+      "buildingTypeId": {
+        "$oid": "6421c426f9de0c4633b71f91"
+      },
+      "level": 4,
+      "_id": {
+        "$oid": "6421c427f9de0c4633b71fa7"
+      },
+      "dateSinceLastCollect": {
+        "$date": "2023-03-27T16:28:23.870Z"
+      }
+    }
+  ],
+  "harvestedRessources": {
+    "metal": 10,
+    "energy": 0
+  },
+  "__v": 0,
+  "createdAt": {
+    "$date": "2023-03-27T16:28:23.878Z"
+  },
+  "updatedAt": {
+    "$date": "2023-03-27T16:28:23.878Z"
+  },
+  "image": "planet-3.png"
+},{
+  "_id": {
+    "$oid": "6421c427f9de0c4633b71fa8"
+  },
+  "name": "Saturn",
+  "owner": {
+    "$oid": "642174ceb2e7a26966d04b09"
+  },
+  "buildings": [],
+  "harvestedRessources": {
+    "metal": 0,
+    "energy": 0
+  },
+  "__v": 0,
+  "createdAt": {
+    "$date": "2023-03-27T16:28:23.878Z"
+  },
+  "updatedAt": {
+    "$date": "2023-03-27T16:28:23.878Z"
+  },
+  "image": "planet-4.png"
+}]

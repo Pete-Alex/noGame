@@ -1,4 +1,4 @@
-<main class="container my-5">
+<main class="container my-4">
   {{#if user}}
     <h1 class="h1 mb-4">Hello, {{user.username}}</h1>
 
@@ -21,7 +21,7 @@
                     {{returnLength this.buildings}}
                   </small>
                   <a
-                    href="/planet/:{{this._id}}"
+                    href="/planet/{{this._id}}"
                     type="button"
                     class="btn btn-sm btn-outline-secondary stretched-link"
                   >View</a>
