@@ -3,3 +3,7 @@ body {
     Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   font-size: 16px;
 }
+
+.icon-sm svg {
+  transform: scale(0.7);
+}
