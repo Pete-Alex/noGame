@@ -29,6 +29,7 @@ router.get("/", (req, res, next) => {
 // GET planet by id
 router.get('/planet/:planetId', (req, res, next) => {
   let ischangeName = false;
+  let noLevelup = false;
   const planetId = req.params.planetId;
   Planet.findById(planetId)
     .populate("buildings.buildingTypeId")
@@ -37,13 +38,17 @@ router.get('/planet/:planetId', (req, res, next) => {
       if (req.query.action === "changeName") {
         ischangeName = checkPlanetUser(req.session.currentUser._id, response.owner._id.toString())
       }
+      if (req.query.errorMessage === "noLevelUp") {
+        noLevelup = true
+      }
       const data = displayPlanetDetail(req.session.currentUser, response);
       res.render("planet-detail", {
         user: req.session.currentUser,
         planetInfo: response,
         infoBuildings: data.infoBuildings,
         isCurrentUserOwnPlanet: data.isCurrentUserOwnPlanet,
-        ischangeName
+        ischangeName,
+        noLevelup
       });
     })
     .catch((e) => {
@@ -117,12 +122,17 @@ router.post("/buildings/:buildingId/level-up", (req, res, next) => {
     try {
       const planetObj = await Planet.findOne({ "buildings._id": buildingId }).populate("buildings.buildingTypeId");
       const buildingIndex = planetObj.buildings.findIndex((element) => element._id.toString() === buildingId);
+
       const statsBuilding = calcBuildingStats(planetObj.buildings[buildingIndex])
+
       if (statsBuilding.cost.metal <= req.session.currentUser.ressources.metal && statsBuilding.cost.energy <= req.session.currentUser.ressources.energy) {
         req.session.currentUser.ressources.metal -= statsBuilding.cost.metal;
         req.session.currentUser.ressources.energy -= statsBuilding.cost.energy;
+
         const planetObjUpadted = await Planet.findOneAndUpdate({ "buildings._id": buildingId }, { $inc: { 'buildings.$.level': 1 } }, { new: true });
         const userUpadted = await User.findByIdAndUpdate(req.session.currentUser._id, { $set: { "ressources.metal": req.session.currentUser.ressources.metal, "ressources.energy": req.session.currentUser.ressources.energy } }, { new: true })
+      } else{
+        res.redirect(`/planet/${planetObj._id}?errorMessage=noLevelUp`)
       }
       res.redirect(`/planet/${planetObj._id}`)
     } catch (e) {

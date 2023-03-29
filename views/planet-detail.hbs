@@ -35,7 +35,11 @@
     {{/if}}
 
   </header>
-
+{{#if noLevelup}}
+    <div class="alert alert-danger">
+      <p>impossible to level up that building, not enough ressource</p>
+    </div>
+  {{/if}}
   <div class="buildingList">
     <h2 class="h2 mb-3">
       Buildings
