@@ -5,7 +5,6 @@ const PlanetSchema = new Schema(
         name: {
             type: String,
             required: [true, "Planet name is required"],
-            unique: true,
             trim: true
         },
         owner: {
