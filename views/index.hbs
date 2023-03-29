@@ -9,7 +9,7 @@
 
           <div class="col-12 col-md-4">
 
-            <div class="card shadow-sm">
+            <div class="card shadow-sm mb-3 bg-dark">
               <div class="img-container">
                 <img class="card-img-top" src="/images/{{this.image}}" alt="" />
               </div>
@@ -23,7 +23,7 @@
                   <a
                     href="/planet/{{this._id}}"
                     type="button"
-                    class="btn btn-sm btn-outline-secondary stretched-link"
+                    class="btn btn-sm btn-outline-primary stretched-link"
                   >View</a>
 
                 </div>
@@ -34,7 +34,7 @@
         {{/each}}
         <div class="col-12 col-md-4 d-flex flex-column justify-content-center">
 
-          <div class="card border-0">
+          <div class="shadow-sm mb-2 bg-tranparent border-0">
             <div class="card-body text-center">
               <h3 class="card-title">Create New Planet</h3>
               {{#if isCreatePlanet}}
@@ -60,7 +60,7 @@
                     data-bs-target="#create-planet-modal"
                     id="create-planet-btn"
                     role="button"
-                    class="btn btn-lg btn-pill btn-primary stretched-link"
+                    class="btn btn-lg btn-pill btn-primary"
                   >{{icon "plus"}}</button>
                 </div>
               {{/if}}
@@ -94,46 +94,45 @@
   {{/if}}
 
   {{#if user}}
-    <div class="modal-dialog modal-sm">
-      <div id="create-planet-modal" class="modal modal-sm" tabindex="-1">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Add new building</h5>
-              <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <form method="POST" action="/create-planet">
-              <div class="modal-body">
-                <label class="mb-1" for="planetName">
-                  Choose a name for your new planet
-                </label>
-                <input
-                  name="planetName"
-                  class="form-control"
-                  type="text"
-                  placeholder="Choose a name"
-                />
-              </div>
-              <div class="modal-footer">
-                <div class="btn-group">
-                  <button
-                    type="button"
-                    class="btn btn-outline-secondary"
-                    data-bs-dismiss="modal"
-                  >Cancel</button>
-                  <button
-                    class="btn btn-outline-primary"
-                    type="submit"
-                  >Create</button>
-                </div>
-              </div>
-            </form>
+    <div id="create-planet-modal" class="modal" tabindex="-1">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content bg-secondary">
+          <div class="modal-header">
+            <h5 class="modal-title">Create new planet</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
           </div>
+          <form method="POST" action="/create-planet">
+            <div class="modal-body">
+              <label class="mb-1" for="planetName">
+                Choose a name for your new planet
+              </label>
+              <input
+                name="planetName"
+                class="form-control bg-dark"
+                data-bs-theme="dark"
+                type="text"
+                placeholder="Choose a name"
+              />
+            </div>
+            <div class="modal-footer">
+              <div class="btn-group">
+                <button
+                  type="button"
+                  class="btn btn-outline-warning"
+                  data-bs-dismiss="modal"
+                >Cancel</button>
+                <button
+                  class="btn btn-outline-primary"
+                  type="submit"
+                >Create</button>
+              </div>
+            </div>
+          </form>
         </div>
       </div>
     </div>

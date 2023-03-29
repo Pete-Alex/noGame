@@ -5,13 +5,14 @@
     id="login-form"
     class="form-login w-50 m-auto"
   >
-    <h1 class="h3 mb-3 fw-normal">Log in</h1>
+    <h1 class="h1 my-4 fw-normal">Log in</h1>
 
     <label class="mb-1" for="email">Email address</label>
     <input
       name="email"
       type="email"
-      class="form-control mb-2"
+      class="form-control text-light bg-dark mb-2"
+      data-bs-theme="dark"
       id="floatingInput"
       placeholder="name@example.com"
     />
@@ -20,12 +21,19 @@
     <input
       name="password"
       type="password"
-      class="form-control mb-2"
+      class="form-control text-light bg-dark mb-2"
+      data-bs-theme="dark"
       id="floatingPassword"
       placeholder="Password"
     />
     <button class="w-100 btn btn-primary mt-2 mb-3" type="submit">Log in</button>
   </form>
+  <p class="text-center text-sm">
+    No account yet?
+    <a class="text-primary" href="/signup">
+      Click here to register!
+    </a>
+  </p>
   {{#if errorMessage}}
     <div class="alert alert-danger">
       {{errorMessage}}

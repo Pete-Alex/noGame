@@ -1,0 +1,34 @@
+<main class="container my-4">
+  <div class="planetList">
+    <h2 class="h2 mb-3">All Planets</h2>
+    <div class="row align-items-stretch">
+      {{#each planetsArray}}
+        <div class="col-12 col-md-4">
+
+          <div class="card shadow-sm mb-3 bg-dark">
+            <div class="img-container">
+              <img class="card-img-top" src="/images/{{this.image}}" alt="" />
+            </div>
+            <div class="card-body">
+              <h3 class="card-title">{{this.name}}</h3>
+              <span class="card-title fs-6">Owner: {{this.owner.username}}</span>
+              <div class="d-flex justify-content-between align-items-center">
+                <small class="text-body-secondary">
+                  Buildings:
+                  {{returnLength this.buildings}}
+                </small>
+                <a
+                  href="/planet/{{this._id}}"
+                  type="button"
+                  class="btn btn-sm btn-outline-primary stretched-link"
+                >View</a>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+      {{/each}}
+    </div>
+  </div>
+</main>

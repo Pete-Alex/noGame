@@ -1,4 +1,4 @@
-<nav class="p-3 bg-body-tertiary sticky-top">
+<nav class="bg-dark p-3 sticky-top" data-bs-theme="dark">
   <div class="container">
     <div class="d-flex flex-wrap align-items-center justify-content-between">
       <a href="/" class="nav-link navbar-brand px-2">
@@ -6,10 +6,12 @@
           {{appTitle}}
         </h1>
       </a>
+      <a href="/planets" class="btn btn-outline-info">See all Planets</a>
       <form class="col-4 col-lg-6 mx-2 mb-0 d-flex" role="search">
         <input
           type="search"
-          class="form-control"
+          class="form-control bg-dark"
+          data-bs-theme="dark"
           placeholder="Search..."
           aria-label="Search"
         />
@@ -18,18 +20,18 @@
         </button>
       </form>
       {{#if user}}
-        <p class="text-sm user-stats lh-1 m-0">
-          <span class="text-secondary icon-sm me-1">{{icon
+        <p class="text-sm user-stats lh-1 m-0 text-light">
+          <span class="text-info icon-sm me-1">{{icon
               "box"
             }}</span>{{user.ressources.metal}}
           <br />
-          <span class="text-secondary icon-sm me-1">{{icon
+          <span class="text-info icon-sm me-1">{{icon
               "zap"
             }}</span>{{user.ressources.energy}}
         </p>
         <div class="text-end d-flex">
           <form class="mb-0 me-1" action="/logout">
-            <button type="submit" class="btn btn-outline-secondary">Log out</button>
+            <button type="submit" class="btn btn-outline-warning">Log out</button>
           </form>
         </div>
       {{else}}
