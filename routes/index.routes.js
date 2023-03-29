@@ -4,6 +4,8 @@ const BuildingType = require("../models/BuildingType.model");
 const Planet = require("../models/Planet.model");
 const User = require("../models/User.model");
 
+const capitalize = require("../utils/capitalize");
+
 const {
   gapTimeCalculation,
   checkPlanetUser,
@@ -46,7 +48,7 @@ router.get("/", (req, res, next) => {
 
 router.post("/create-planet", (req, res, next) => {
   const newPlanetDetail = {
-    name: req.body.planetName,
+    name: capitalize(req.body.planetName),
     owner: req.session.currentUser._id,
     buildings: [],
     image: `planet-${Math.floor(Math.random() * (11 - 1 + 1) + 1)}.png`,
@@ -126,7 +128,7 @@ router.get("/planet/:planetId", (req, res, next) => {
 
 // POST change name of planet by id
 router.post("/planet/:planetId/change-name", (req, res, next) => {
-  const newPlanetName = req.body.name;
+  const newPlanetName = capitalize(req.body.name);
   const planetId = req.params.planetId;
   Planet.findByIdAndUpdate(planetId, { name: newPlanetName }, { new: true })
     .then((response) => {
