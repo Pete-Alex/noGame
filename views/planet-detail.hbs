@@ -44,10 +44,10 @@
     <h2 class="h2 mb-3">
       Buildings
     </h2>
-    <div class="row">
+    <div class="row  align-content-stretch flex-wrap">
 
       {{#each infoBuildings}}
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-6 col-lg-4">
           <div class="card shadow-sm mb-2">
             <div class="img-container">
               <img
@@ -66,19 +66,19 @@
                 <thead>
                   <tr>
                     <th scope="col"></th>
-                    <th scope="col">Metal</th>
-                    <th scope="col">Energy</th>
+                    <th scope="col">Costs</th>
+                    <th scope="col">Production</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <th class="text-start" scope="row">Costs</th>
+                    <th class="text-start" scope="row">Metal <span class="text-secondary icon-sm">{{icon "box"}}</span></th>
                     <td>{{floorNumber this.cost.metal}}</td>
-                    <td>{{floorNumber this.cost.energy}}</td>
+                    <td>{{floorNumber this.production.metal}}</td>
                   </tr>
                   <tr>
-                    <th class="text-start" scope="row">Production</th>
-                    <td>{{floorNumber this.production.metal}}</td>
+                    <th class="text-start" scope="row">Energy <span class="text-secondary icon-sm">{{icon "zap"}}</span></th>
+                    <td>{{floorNumber this.cost.energy}}</td>
                     <td>{{floorNumber this.production.energy}}</td>
                   </tr>
                 </tbody>
