@@ -26,16 +26,16 @@
     {{else}}
       <h1 class="h1 d-inline-block me-4">Welcome to planet
         {{planetInfo.name}}</h1>
-        {{#if isCurrentUserOwnPlanet}}
-      <a
-        class="btn btn-outline-secondary btn-sm"
-        href="?action=changeName"
-      >{{icon "edit-2"}}</a>
+      {{#if isCurrentUserOwnPlanet}}
+        <a
+          class="btn btn-outline-secondary btn-sm"
+          href="?action=changeName"
+        >{{icon "edit-2"}}</a>
       {{/if}}
     {{/if}}
 
   </header>
-{{#if noLevelup}}
+  {{#if noLevelup}}
     <div class="alert alert-danger">
       <p>impossible to level up that building, not enough ressource</p>
     </div>
@@ -44,11 +44,11 @@
     <h2 class="h2 mb-3">
       Buildings
     </h2>
-    <div class="row">
+    <div class="row  align-content-stretch flex-wrap">
 
       {{#each infoBuildings}}
-        <div class="col-12 col-md-6">
-          <div class="card shadow-sm">
+        <div class="col-12 col-md-6 col-lg-4">
+          <div class="card shadow-sm mb-2">
             <div class="img-container">
               <img
                 class="card-img-top"
@@ -66,46 +66,53 @@
                 <thead>
                   <tr>
                     <th scope="col"></th>
-                    <th scope="col">Metal</th>
-                    <th scope="col">Energy</th>
+                    <th scope="col"></th>
+                    <th scope="col">Costs</th>
+                    <th scope="col">Production</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <th class="text-start" scope="row">Costs</th>
+                    <th  scope="row">Metal</th>
+                    <td><span class="text-secondary icon-sm">{{icon "box"}}</span></td>
                     <td>{{floorNumber this.cost.metal}}</td>
-                    <td>{{floorNumber this.cost.energy}}</td>
+                    <td>{{floorNumber this.production.metal}}</td>
                   </tr>
                   <tr>
-                    <th class="text-start" scope="row">Production</th>
-                    <td>{{floorNumber this.production.metal}}</td>
+                    <th  scope="row">Energy</th>
+                    <td><span class="text-secondary icon-sm">{{icon "zap"}}</span></td>
+                    <td>{{floorNumber this.cost.energy}}</td>
                     <td>{{floorNumber this.production.energy}}</td>
                   </tr>
                 </tbody>
               </table>
+
               {{#if ../isCurrentUserOwnPlanet}}
-              <div class="btn-container d-flex justify-content-between">
-                <div class="btn-group">
-                  <form action="/buildings/{{this.id}}/level-up" method="POST">
+                <div class="btn-container d-flex justify-content-between">
+                  <div class="btn-group">
+                    <form
+                      action="/buildings/{{this.id}}/level-up"
+                      method="POST"
+                    >
+                      <button
+                        type="submit"
+                        class="me-1 btn btn-sm btn-outline-secondary"
+                      >Level up</button>
+                    </form>
+                    <form action="/buildings/{{this.id}}/harvest" method="POST">
+                      <button
+                        type="submit"
+                        class="btn btn-sm btn-outline-secondary"
+                      >Harvest</button>
+                    </form>
+                  </div>
+                  <form action="/buildings/{{this.id}}/destroy" method="POST">
                     <button
                       type="submit"
-                      class="me-1 btn btn-sm btn-outline-secondary"
-                    >Level up</button>
-                  </form>
-                  <form action="/buildings/{{this.id}}/harvest" method="POST">
-                    <button
-                      type="submit"
-                      class="btn btn-sm btn-outline-secondary"
-                    >Harvest</button>
+                      class="btn btn-outline-danger btn-sm"
+                    >destroy</button>
                   </form>
                 </div>
-                <form action="/buildings/{{this.id}}/destroy" method="POST">
-                  <button
-                    type="submit"
-                    class="btn btn-outline-danger btn-sm"
-                  >destroy</button>
-                </form>
-              </div>
               {{/if}}
             </div>
           </div>
@@ -118,11 +125,13 @@
             <div class="card-body text-center">
               <h3 class="card-title">Add new Building</h3>
               <div class="d-flex justify-content-center">
-                <a
-                  href="/planet/{{planetInfo._id}}/new-building"
-                  type="button"
+                <button
+                  data-bs-toggle="modal"
+                  data-bs-target="#add-building-modal"
+                  id="new-building-btn"
+                  role="button"
                   class="btn btn-lg btn-pill btn-primary stretched-link"
-                >{{icon "plus"}}</a>
+                >{{icon "plus"}}</button>
               </div>
             </div>
           </div>
@@ -131,4 +140,53 @@
 
     </div>
   </div>
+
+  {{#if isCurrentUserOwnPlanet}}
+    <div class="modal-dialog modal-sm">
+      <div id="add-building-modal" class="modal modal-sm" tabindex="-1">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Add new building</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <form
+              method="POST"
+              action="/planet/{{planetInfo._id}}/new-building"
+            >
+              <div class="modal-body">
+                <label class="mb-1" for="building">
+                  Choose a type of building
+                </label>
+                <select class="form-select" name="building">
+                  {{#each buildingTypesInfo}}
+                    <option value={{this._id}}>{{this.name}}</option>
+                  {{/each}}
+                </select>
+              </div>
+              <div class="modal-footer">
+                <div class="btn-group">
+                  <button
+                    type="button"
+                    class="btn btn-outline-secondary"
+                    data-bs-dismiss="modal"
+                  >Cancel</button>
+                  <button
+                    class="btn btn-outline-primary"
+                    type="submit"
+                  >Add</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  {{/if}}
+
 </main>
