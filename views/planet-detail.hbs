@@ -26,10 +26,12 @@
     {{else}}
       <h1 class="h1 d-inline-block me-4">Welcome to planet
         {{planetInfo.name}}</h1>
+        {{#if isCurrentUserOwnPlanet}}
       <a
         class="btn btn-outline-secondary btn-sm"
         href="?action=changeName"
       >{{icon "edit-2"}}</a>
+      {{/if}}
     {{/if}}
 
   </header>
@@ -77,6 +79,7 @@
                   </tr>
                 </tbody>
               </table>
+              {{#if ../isCurrentUserOwnPlanet}}
               <div class="btn-container d-flex justify-content-between">
                 <div class="btn-group">
                   <form action="/buildings/{{this.id}}/level-up" method="POST">
@@ -99,6 +102,7 @@
                   >destroy</button>
                 </form>
               </div>
+              {{/if}}
             </div>
           </div>
         </div>
