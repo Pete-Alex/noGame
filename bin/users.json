@@ -1,0 +1,55 @@
+[{
+  "_id": {
+    "$oid": "642174ceb2e7a26966d04b09"
+  },
+  "username": "beubeu",
+  "email": "ale.benat@gmail.com",
+  "passwordHash": "$2a$10$mWMVBLUV0TSh0qOmyRGyLuvZNC8EOsNluw1NNqA3Nkgw8FRhTH/Na",
+  "planetListOwned": [
+    {
+      "$oid": "6421c427f9de0c4633b71fa8"
+    },
+    {
+      "$oid": "6421c427f9de0c4633b71fa3"
+    }
+  ],
+  "planetListVisited": [],
+  "ressources": {
+    "metal": 100,
+    "energy": 200
+  },
+  "createdAt": {
+    "$date": "2023-03-27T10:49:50.116Z"
+  },
+  "updatedAt": {
+    "$date": "2023-03-27T10:49:50.116Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "64217fdbeb3e7f86c8739e79"
+  },
+  "username": "Pete",
+  "email": "pete@pete.de",
+  "passwordHash": "$2a$10$FMpnlrIdN6m7kh3HfPs9nuVU9uYb89Cl9.BkavqZu9N7UZKI2SBX6",
+  "planetListOwned": [
+    {
+      "$oid": "6421c427f9de0c4633b71fa6"
+    },
+    {
+      "$oid": "6421c427f9de0c4633b71f9f"
+    }
+  ],
+  "planetListVisited": [],
+  "ressources": {
+    "metal": 100,
+    "energy": 200
+  },
+  "createdAt": {
+    "$date": "2023-03-27T11:36:59.318Z"
+  },
+  "updatedAt": {
+    "$date": "2023-03-27T11:36:59.318Z"
+  },
+  "__v": 0
+}]
