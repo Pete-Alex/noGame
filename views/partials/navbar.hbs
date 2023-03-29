@@ -1,8 +1,7 @@
 <header class="p-3">
-  <div class="container">
+  <div class="container fixed-top">
     <div
-      class="d-flex flex-wrap align-items-center justify-content-between justify-content-lg-start"
-    >
+      class="d-flex flex-wrap align-items-center justify-content-between justify-content-lg-start">
       <a href="/" class="nav-link navbar-brand px-2">
         <h1>
           {{appTitle}}
@@ -34,7 +33,8 @@
         </div>
       {{/if}}
     </div>
-  </div>
-</header>
-<p>metal:{{user.ressources.metal}}</p>
+    <p>metal:{{user.ressources.metal}}</p>
 <p>energy:{{user.ressources.energy}}</p>
+  </div>
+  
+</header>
