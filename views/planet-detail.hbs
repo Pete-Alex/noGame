@@ -1,116 +1,126 @@
-{{#if ischangeName}}
-<form action="/planet/{{planetInfo._id}}/change-name" method="POST">
-    <input type="text" name="name" value="{{planetInfo.name}}" />
-    <button type="submit" class="btn btn-secondary">change name</button>
-</form>
-{{else}}
-<h2>{{planetInfo.name}}</h2>
-{{/if}}
-
-
-<p>Owner : {{planetInfo.owner.username}}</p>
-{{#if isCurrentUserOwnPlanet}}
-<a href="?action=changeName" class="btn btn-secondary">change planet name</a>
-{{/if}}
-{{#each infoBuildings}}
-<h3>{{this.name}}</h3>
-<p>{{this.description}}</p>
-<p>level: {{this.level}}</p>
-<p>production metal: {{this.production.metal}}</p>
-<p>production energy: {{this.production.energy}}</p>
-<p>cost metal: {{this.cost.metal}}</p>
-<p>cost energy: {{this.cost.energy}}</p>
-{{#if ../isCurrentUserOwnPlanet}}
-<form action="/buildings/{{this.id}}/level-up" method="POST">
-    <button type="submit" class="btn btn-secondary">level up</button>
-</form>
-<form action="/buildings/{{this.id}}/harvest" method="POST">
-    <button type="submit" class="btn btn-secondary">harvest</button>
-</form>
-<form action="" method="POST">
-    <button type="submit" class="btn btn-secondary">destroy</button>
-</form>
-{{/if}}
-{{else}}
-<p>Your planet doesn’t have any buildings.<br>
-    Create your first one.</p>
-{{/each}}
-{{#if isCurrentUserOwnPlanet}}
-<a href="/planet/{{planetInfo._id}}/new-building" class="btn btn-secondary">add New Building</a>
-{{/if}}
-
 <main class="container my-4">
-    <header class="d-flex align-items-center mb-4">
-        <h1 class="h1 d-inline-block me-4">Welcome to planet {{planetInfo.name}}</h1>
-        <a class="btn btn-outline-secondary btn-sm" href="?action=changeName">{{icon "edit-2"}}</a>
-    </header>
-    <div class="buildingList">
-        <h2 class="h2 mb-3">
-            Buildings
-        </h2>
-        <div class="row">
-            {{#each infoBuildings}}
-                <div class="col-12 col-md-6">
-                    <div class="card shadow-sm">
-                       <div class="img-container">
-                        <img class="card-img-top" src="/images/{{returnImgName this}}" alt="" />
-                       </div>
-                        <div class="card-body">
-                            <h3 class="card-title">
-                                {{this.name}} <span class="text-body-secondary">lv. {{this.level}}</span>
-                            </h3>
-                            <p class="card-text" >{{this.description}}</p>
-                            <table class="table table-sm text-end">
-                                  <thead>
-                                    <tr>
-                                    <th scope="col"></th>
-                                    <th scope="col">Metal</th>
-                                    <th scope="col">Energy</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                    <th class="text-start" scope="row">Costs</th>
-                                    <td>{{floorNumber this.cost.metal}}</td>
-                                    <td>{{floorNumber this.cost.energy}}</td>
-                                    
-                                    </tr>
-                                    <tr>
-                                    <th class="text-start" scope="row">Production</th>
-                                        <td>{{floorNumber this.production.metal}}</td>
-                                    <td>{{floorNumber this.production.energy}}</td>        
-                                    </tr>
-                                </tbody>
-                             </table>
-                             <div class="btn-container d-flex justify-content-between">
-                                 <div class="btn-group">
-                                    <a href="" class="btn btn-outline-secondary btn-sm">Level up</a>
-                                    <a href="" class="btn btn-outline-secondary btn-sm">Harvest</a>
-                                 </div>
-                                                             <a href="" class="btn btn-outline-danger btn-sm">Destroy</a>
-                             </div>
-                        </div>
-                    </div>
+  <header class="d-flex align-items-center mb-4">
+
+    {{#if ischangeName}}
+      <form
+        class="input-group input-group-lg"
+        action="/planet/{{planetInfo._id}}/change-name"
+        method="POST"
+      >
+        <input
+          type="text"
+          name="name"
+          class="form-control"
+          value="{{planetInfo.name}}"
+          placeholder="Choose a name for your planet"
+        />
+        <a
+          class="btn btn-lg btn-outline-secondary"
+          role="button"
+          href="javascript:history.back()"
+        >{{icon "x"}}</a>
+        <button type="submit" class="btn btn-lg btn-outline-primary">{{icon
+            "check"
+          }}</button>
+      </form>
+    {{else}}
+      <h1 class="h1 d-inline-block me-4">Welcome to planet
+        {{planetInfo.name}}</h1>
+      <a
+        class="btn btn-outline-secondary btn-sm"
+        href="?action=changeName"
+      >{{icon "edit-2"}}</a>
+    {{/if}}
+
+  </header>
+
+  <div class="buildingList">
+    <h2 class="h2 mb-3">
+      Buildings
+    </h2>
+    <div class="row">
+
+      {{#each infoBuildings}}
+        <div class="col-12 col-md-6">
+          <div class="card shadow-sm">
+            <div class="img-container">
+              <img
+                class="card-img-top"
+                src="/images/{{returnImgName this}}"
+                alt=""
+              />
+            </div>
+            <div class="card-body">
+              <h3 class="card-title">
+                {{this.name}}
+                <span class="text-body-secondary">lv. {{this.level}}</span>
+              </h3>
+              <p class="card-text">{{this.description}}</p>
+              <table class="table table-sm text-end">
+                <thead>
+                  <tr>
+                    <th scope="col"></th>
+                    <th scope="col">Metal</th>
+                    <th scope="col">Energy</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th class="text-start" scope="row">Costs</th>
+                    <td>{{floorNumber this.cost.metal}}</td>
+                    <td>{{floorNumber this.cost.energy}}</td>
+                  </tr>
+                  <tr>
+                    <th class="text-start" scope="row">Production</th>
+                    <td>{{floorNumber this.production.metal}}</td>
+                    <td>{{floorNumber this.production.energy}}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="btn-container d-flex justify-content-between">
+                <div class="btn-group">
+                  <form action="/buildings/{{this.id}}/level-up" method="POST">
+                    <button
+                      type="submit"
+                      class="me-1 btn btn-sm btn-outline-secondary"
+                    >Level up</button>
+                  </form>
+                  <form action="/buildings/{{this.id}}/harvest" method="POST">
+                    <button
+                      type="submit"
+                      class="btn btn-sm btn-outline-secondary"
+                    >Harvest</button>
+                  </form>
                 </div>
-            {{/each}}
+                <form action="" method="POST">
+                  <button
+                    type="submit"
+                    class="btn btn-outline-danger btn-sm"
+                  >destroy</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      {{/each}}
 
-            <div class="col-12 col-md-4 d-flex flex-column justify-content-center">
-
+      {{#if isCurrentUserOwnPlanet}}
+        <div class="col-12 col-md-4 d-flex flex-column justify-content-center">
           <div class="card border-0">
             <div class="card-body text-center">
               <h3 class="card-title">Add new Building</h3>
               <div class="d-flex justify-content-center">
                 <a
-                  href="/planet/create"
+                  href="/planet/{{planetInfo._id}}/new-building"
                   type="button"
                   class="btn btn-lg btn-pill btn-primary stretched-link"
                 >{{icon "plus"}}</a>
-
               </div>
             </div>
-
           </div>
         </div>
-        </div>
+      {{/if}}
+
     </div>
+  </div>
 </main>
