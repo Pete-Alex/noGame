@@ -43,9 +43,9 @@
       {{planetInfo.owner.username}}</h4>
   <a href="/">back</a>
   </div>
-  {{#if noLevelup}}
+  {{#if isErrormessage}}
     <div class="alert alert-danger">
-      <p>impossible to level up that building, not enough ressource</p>
+      <p>{{messageError}}</p>
     </div>
   {{/if}}
   <div class="buildingList">
