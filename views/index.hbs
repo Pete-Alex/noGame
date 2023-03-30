@@ -1,141 +1,109 @@
 <main class="container my-4">
   {{#if user}}
-    <h1 class="h1 mb-4">Hello, {{user.username}}</h1>
+  <h1 class="h1 mb-4">Hello, {{user.username}}</h1>
+  {{#if isErrormessage}}
+  <div class="alert alert-danger">
+    <p>{{messageError}}</p>
+  </div>
+  {{/if}}
+  <div class="planetList">
+    <h2 class="h2 mb-3">Your Planets</h2>
+    <div class="row align-items-stretch">
+      {{#each userData.planetListOwned}}
 
-    <div class="planetList">
-      <h2 class="h2 mb-3">Your Planets</h2>
-      <div class="row align-items-stretch">
-        {{#each userData.planetListOwned}}
+      <div class="col-12 col-md-4">
 
-          <div class="col-12 col-md-4">
-
-            <div class="card shadow-sm mb-3 bg-dark">
-              <div class="img-container">
-                <img class="card-img-top" src="/images/{{this.image}}" alt="" />
-              </div>
-              <div class="card-body">
-                <h3 class="card-title">{{this.name}}</h3>
-                <div class="d-flex justify-content-between align-items-center">
-                  <small class="text-body-secondary">
-                    Buildings:
-                    {{returnLength this.buildings}}
-                  </small>
-                  <a
-                    href="/planets/{{this._id}}"
-                    type="button"
-                    class="btn btn-sm btn-outline-primary stretched-link"
-                  >View</a>
-
-                </div>
-              </div>
+        <div class="card shadow-sm mb-3 bg-dark">
+          <div class="img-container">
+            <img class="card-img-top" src="/images/{{this.image}}" alt="" />
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">{{this.name}}</h3>
+            <div class="d-flex justify-content-between align-items-center">
+              <small class="text-body-secondary">
+                Buildings:
+                {{returnLength this.buildings}}
+              </small>
+              <a href="/planets/{{this._id}}" type="button"
+                class="btn btn-sm btn-outline-primary stretched-link">View</a>
 
             </div>
           </div>
-        {{/each}}
-        <div class="col-12 col-md-4 d-flex flex-column justify-content-center">
 
-          <div class="shadow-sm mb-2 bg-tranparent border-0">
-            <div class="card-body text-center">
-              <h3 class="card-title">Create New Planet</h3>
-              {{#if isCreatePlanet}}
-                <form
-                  class="mx-2 mb-0 d-flex"
-                  method="POST"
-                  action="create-planet"
-                >
-                  <input
-                    type="search"
-                    class="form-control mr-1 text-light"
-                    placeholder="choose a name"
-                    name="planetName"
-                  />
-                  <button class="btn btn-outline-primary ms-1" type="submit">
-                    Create Planet
-                  </button>
-                </form>
-              {{else}}
-                <div class="d-flex justify-content-center">
-                  <button
-                    data-bs-toggle="modal"
-                    data-bs-target="#create-planet-modal"
-                    id="create-planet-btn"
-                    role="button"
-                    class="btn btn-lg btn-pill btn-primary"
-                  >{{icon "plus"}}</button>
-                </div>
-              {{/if}}
+        </div>
+      </div>
+      {{/each}}
+      <div class="col-12 col-md-4 d-flex flex-column justify-content-center">
+
+        <div class="shadow-sm mb-2 bg-tranparent border-0">
+          <div class="card-body text-center">
+            <h3 class="card-title">Create New Planet2</h3>
+            <h5>Costs:</h5>
+            <div class="container text-end mb-3">
+              <div class="row">
+                <div class="col">New Planet</div>
+
+                <div class="col">100.000<span class="text-info icon-sm">{{icon "box"}}</span></div>
+
+                <div class="col">100.000<span class="text-info icon-sm">{{icon "zap"}}</span></div>
+              </div>
+            </div>
+            <div class="d-flex justify-content-center">
+              <button data-bs-toggle="modal" data-bs-target="#create-planet-modal" id="create-planet-btn" role="button"
+                class="btn btn-lg btn-pill btn-primary">{{icon "plus"}}</button>
             </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
   {{else}}
-    <div class="p-5 text-center bg-body-tertiary rounded-3">
-      <h1 class="text-body-emphasis">
-        <h1>Welcome to {{appTitle}} 🚀</h1>
-      </h1>
-      <p class="col-lg-8 mx-auto fs-5 text-muted">
-        NoGame is the ultimate Lorem ipsum dolor sit amet consectetur
-        adipisicing elit. Commodi deserunt maiores placeat ullam magni dolores
-        quod nesciunt temporibus ducimus mollitia soluta, aperiam beatae omnis
-        ratione officiis consequuntur sunt provident aliquid?
-      </p>
-      <div class="d-inline-flex gap-2 mb-5">
-        <a
-          href="/signup"
-          class="d-inline-flex align-items-center btn btn-primary btn-lg px-4"
-        >
-          Register
-          {{icon "arrow-right"}}
-        </a>
-        <a href="/login" class="btn btn-outline-primary btn-lg px-4">Log in</a>
-      </div>
+  <div class="p-5 text-center bg-body-tertiary rounded-3">
+    <h1 class="text-body-emphasis">
+      <h1>Welcome to {{appTitle}} 🚀</h1>
+    </h1>
+    <p class="col-lg-8 mx-auto fs-5 text-muted">
+      NoGame is the ultimate Lorem ipsum dolor sit amet consectetur
+      adipisicing elit. Commodi deserunt maiores placeat ullam magni dolores
+      quod nesciunt temporibus ducimus mollitia soluta, aperiam beatae omnis
+      ratione officiis consequuntur sunt provident aliquid?
+    </p>
+    <div class="d-inline-flex gap-2 mb-5">
+      <a href="/signup" class="d-inline-flex align-items-center btn btn-primary btn-lg px-4">
+        Register
+        {{icon "arrow-right"}}
+      </a>
+      <a href="/login" class="btn btn-outline-primary btn-lg px-4">Log in</a>
     </div>
+  </div>
   {{/if}}
 
   {{#if user}}
-    <div id="create-planet-modal" class="modal" tabindex="-1">
-      <div class="modal-dialog modal-sm">
-        <div class="modal-content bg-secondary">
-          <div class="modal-header">
-            <h5 class="modal-title">Create new planet</h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <form method="POST" action="/create-planet">
-            <div class="modal-body">
-              <label class="mb-1" for="planetName">
-                Choose a name for your new planet
-              </label>
-              <input
-                name="planetName"
-                class="form-control bg-dark text-light"
-                data-bs-theme="dark"
-                type="text"
-                placeholder="Choose a name"
-              />
-            </div>
-            <div class="modal-footer">
-              <div class="btn-group">
-                <button
-                  type="button"
-                  class="btn btn-outline-warning"
-                  data-bs-dismiss="modal"
-                >Cancel</button>
-                <button
-                  class="btn btn-outline-primary"
-                  type="submit"
-                >Create</button>
-              </div>
-            </div>
-          </form>
+  <div id="create-planet-modal" class="modal" tabindex="-1">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content bg-secondary">
+        <div class="modal-header">
+          <h5 class="modal-title">Create new planet</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
+        <form method="POST" action="/create-planet">
+          <div class="modal-body">
+            <label class="mb-1" for="planetName">
+              Choose a name for your new planet
+            </label>
+            <input name="planetName" class="form-control bg-dark text-light" data-bs-theme="dark" type="text"
+              placeholder="Choose a name" />
+          </div>
+          <div class="modal-footer">
+            <div class="btn-group">
+              <button type="button" class="btn btn-outline-warning" data-bs-dismiss="modal">Cancel</button>
+              <button class="btn btn-outline-primary" type="submit">Create</button>
+            </div>
+          </div>
+        </form>
       </div>
     </div>
+  </div>
   {{/if}}
 
 </main>

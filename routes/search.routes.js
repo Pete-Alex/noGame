@@ -24,7 +24,6 @@ router.get("/search", (req, res, next) => {
     .then((result) => {
       data.planets = result;
       data.user = req.session.currentUser;
-      console.log(data);
       res.render("search-results", data);
     })
     .catch((err) => next(err));

@@ -134,7 +134,21 @@ router.post("/planets/:planetId/new-building", isUserPlanetOwner, (req, res, nex
         req.session.currentUser.ressources.metal -= statsBuilding.cost.metal;
         req.session.currentUser.ressources.energy -= statsBuilding.cost.energy;
 
+        //update planet document with a new building
         const planetToUpdate = await Planet.findByIdAndUpdate(planetId, { $push: { buildings: { buildingTypeId: newBuilding, level: 1 } } }, { new: true });
+
+        //update user with new ressources values
+        const userUpadted = await User.findByIdAndUpdate(
+          req.session.currentUser._id,
+          {
+            $set: {
+              "ressources.metal": req.session.currentUser.ressources.metal,
+              "ressources.energy": req.session.currentUser.ressources.energy,
+            },
+          },
+          { new: true }
+        );
+        res.redirect(`/planets/${planetObj._id}`);
 
         res.redirect(`/planets/${planetId}`);
       } else {
@@ -145,14 +159,6 @@ router.post("/planets/:planetId/new-building", isUserPlanetOwner, (req, res, nex
       console.log("error", e);
     }
   })();
-
-
-
-
-
-
-
-
 });
 
 module.exports = router;
