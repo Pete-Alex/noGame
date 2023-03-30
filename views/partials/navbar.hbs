@@ -1,26 +1,35 @@
 <nav class="bg-dark p-3 sticky-top" data-bs-theme="dark">
-  <div class="container">
-    <div class="d-flex flex-wrap align-items-center justify-content-between">
-      <a href="/" class="nav-link navbar-brand px-2">
+  <div
+    class="container d-flex flex-wrap align-items-center justify-content-between"
+  >
+    <div class="col-4 col-md-2">
+      <a href="/" class="nav-link navbar-brand m-auto px-1">
         <h1>
           {{appTitle}}
         </h1>
       </a>
-      <a href="/planets" class="btn btn-outline-info">See all Planets</a>
-      <form class="col-4 col-lg-6 mx-2 mb-0 d-flex" role="search">
-        <input
-          type="search"
-          class="form-control bg-dark"
-          data-bs-theme="dark"
-          placeholder="Search..."
-          aria-label="Search"
-        />
-        <button class="btn btn-outline-primary ms-1" type="submit">
-          {{icon "search"}}
-        </button>
-      </form>
+    </div>
+
+    <div class="col-6 col-md-3 order-md-3 d-flex justify-content-start">
+      <a href="/planets" class="d-inline-block w-100 btn btn-outline-info">See
+        all Planets</a>
+    </div>
+
+    <div class="col-2 col-md-1 order-md-4 d-flex justify-content-end">
       {{#if user}}
-        <p class="text-sm user-stats lh-1 m-0 text-light">
+        <form class="mb-0" action="/logout">
+          <button type="submit" class="btn btn-outline-warning">{{icon
+              "log-out"
+            }}</button>
+        </form>
+      {{else}}
+        <a class="btn btn-primary" href="/login">{{icon "log-in"}}</a>
+      {{/if}}
+    </div>
+
+    <div class="col-4 col-md-2 order-md-2">
+      {{#if user}}
+        <p class="text-sm user-stats m-0 px-2 text-light lh-1">
           <span class="text-info icon-sm me-1">{{icon
               "box"
             }}</span>{{user.ressources.metal}}
@@ -29,16 +38,27 @@
               "zap"
             }}</span>{{user.ressources.energy}}
         </p>
-        <div class="text-end d-flex">
-          <form class="mb-0 me-1" action="/logout">
-            <button type="submit" class="btn btn-outline-warning">Log out</button>
-          </form>
-        </div>
-      {{else}}
-        <div class="text-end">
-          <a class="btn btn-primary" href="/login">Log in</a>
-        </div>
       {{/if}}
     </div>
+
+    <div class="col-8 col-md-4">
+      <form class="mb-0 d-flex" role="search">
+
+        <div class="input-group">
+          <input
+            type="search"
+            class="form-control bg-dark text-light"
+            data-bs-theme="dark"
+            placeholder="Search …"
+            aria-label="Search"
+          />
+          <button class="btn btn-outline-primary" type="submit">
+            {{icon "search"}}
+          </button>
+        </div>
+
+      </form>
+    </div>
+
   </div>
 </nav>

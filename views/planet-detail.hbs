@@ -4,18 +4,20 @@
     {{#if ischangeName}}
       <form
         class="input-group input-group-lg"
-        action="/planet/{{planetInfo._id}}/change-name"
+        action="/planets/{{planetInfo._id}}/change-name"
         method="POST"
       >
         <input
           type="text"
           name="name"
-          class="form-control"
+    
+          class="form-control bg-dark text-light"
+                data-bs-theme="dark"
           value="{{planetInfo.name}}"
           placeholder="Choose a name for your planet"
         />
         <a
-          class="btn btn-lg btn-outline-secondary"
+          class="btn btn-lg btn-outline-warning"
           role="button"
           href="javascript:history.back()"
         >{{icon "x"}}</a>
@@ -28,7 +30,7 @@
         {{planetInfo.name}}</h1>
       {{#if isCurrentUserOwnPlanet}}
         <a
-          class="btn btn-outline-light btn-sm"
+          class="btn btn-outline-info btn-sm"
           href="?action=changeName"
         >{{icon "edit-2"}}</a>
       {{/if}}
@@ -157,7 +159,7 @@
           </div>
           <form
             method="POST"
-            action="/planet/{{planetInfo._id}}/new-building"
+            action="/planets/{{planetInfo._id}}/new-building"
           >
             <div class="modal-body">
               <label class="mb-1" for="building">
