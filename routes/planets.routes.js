@@ -7,6 +7,7 @@ const User = require("../models/User.model");
 
 //utils functions
 const capitalize = require("../utils/capitalize");
+const checkErrorMessage = require("../utils/errorMessage");
 
 const {
   gapTimeCalculation,
@@ -41,7 +42,7 @@ router.get("/planets", (req, res, next) => {
 // GET planet by id
 router.get("/planets/:planetId", (req, res, next) => {
 
-  //booleans to display so dynamic element on the page
+  //booleans to display dynamic element on the page
   let data = {
     ischangeName: false,
     isErrormessage: false,
@@ -60,18 +61,8 @@ router.get("/planets/:planetId", (req, res, next) => {
         );
       }
 
-      //test to display error message
-      if (req.query.errorMessage != undefined) {
-        data.isErrormessage = true;
-        switch (req.query.errorMessage) {
-          case 'noNewBuilding':
-            data.messageError = "you can't create the building, you don't have enough ressources"
-            break;
-          case 'noLevelUp':
-            data.messageError = "you can't level up the building, you don't have enough ressources"
-            break;
-        }
-      }
+      //check list of error message to display the right one
+      data = checkErrorMessage(req.query, data);
 
       const { isCurrentUserOwnPlanet, infoBuildings } = displayPlanetDetail(
         req.session.currentUser,
@@ -148,8 +139,6 @@ router.post("/planets/:planetId/new-building", isUserPlanetOwner, (req, res, nex
           },
           { new: true }
         );
-        res.redirect(`/planets/${planetObj._id}`);
-
         res.redirect(`/planets/${planetId}`);
       } else {
         res.redirect(`/planets/${planetId}?errorMessage=noNewBuilding`);
