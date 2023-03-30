@@ -1,7 +1,7 @@
 function costMine(number) {
     const costData = {
-        metal: 60 * number * Math.pow(1.5, number - 1),
-        energy: 10 * number * Math.pow(1.1, number)
+        metal: 60 * (number + 1) * Math.pow(1.5, number + 1 - 1),
+        energy: 10 * (number + 1) * Math.pow(1.1, number + 1)
     };
     return costData
 }
@@ -16,7 +16,7 @@ function productionMine(number) {
 
 function costPowerPlant(number) {
     const costData = {
-        metal: 70 * number * Math.pow(1.5, number),
+        metal: 70 * (number + 1) * Math.pow(1.5, number + 1),
         energy: 0
     };
     return costData

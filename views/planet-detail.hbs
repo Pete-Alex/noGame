@@ -1,53 +1,58 @@
 <main class="container my-4">
-  <header class="d-flex align-items-center mb-1">
+  <header>
+    <div class="d-flex align-items-center mb-1">
 
-    {{#if ischangeName}}
-      <form
-        class="input-group input-group-lg"
-        action="/planets/{{planetInfo._id}}/change-name"
-        method="POST"
-      >
-        <input
-          type="text"
-          name="name"
-    
-          class="form-control bg-dark text-light"
-                data-bs-theme="dark"
-          value="{{planetInfo.name}}"
-          placeholder="Choose a name for your planet"
-        />
-        <a
-          class="btn btn-lg btn-outline-warning"
-          role="button"
-          href="javascript:history.back()"
-        >{{icon "x"}}</a>
-        <button type="submit" class="btn btn-lg btn-outline-primary">{{icon
-            "check"
-          }}</button>
-      </form>
-    {{else}}
-      <h1 class="h1 d-inline-block me-4">Welcome to planet
-        {{planetInfo.name}}</h1>
-      {{#if isCurrentUserOwnPlanet}}
-        <a
-          class="btn btn-outline-info btn-sm"
-          href="?action=changeName"
-        >{{icon "edit-2"}}</a>
+      {{#if ischangeName}}
+        <form
+          class="input-group input-group-lg"
+          action="/planets/{{planetInfo._id}}/change-name"
+          method="POST"
+        >
+          <input
+            type="text"
+            name="name"
+            class="form-control bg-dark text-light"
+            data-bs-theme="dark"
+            value="{{planetInfo.name}}"
+            placeholder="Choose a name for your planet"
+          />
+          <a
+            class="btn btn-lg btn-outline-warning"
+            role="button"
+            href="javascript:history.back()"
+          >{{icon "x"}}</a>
+          <button type="submit" class="btn btn-lg btn-outline-primary">{{icon
+              "check"
+            }}</button>
+        </form>
+      {{else}}
+        <h1 class="h1 d-inline-block me-4">Welcome to planet
+          {{planetInfo.name}}</h1>
+        {{#if isCurrentUserOwnPlanet}}
+          <a
+            class="btn btn-outline-info btn-sm"
+            href="?action=changeName"
+          >{{icon "edit-2"}}</a>
+        {{/if}}
       {{/if}}
-    {{/if}}
-  
+    </div>
+
   </header>
-  <div class="mb-4"><h4 class="h4 d-inline-block me-b">Owner : {{planetInfo.owner.username}}</h4></div>
-  {{#if noLevelup}}
+  <div class="mb-4">
+    <h4 class="h4 me-b">Owner :
+      {{planetInfo.owner.username}}</h4>
+  <a href="/">back</a>
+  </div>
+  {{#if isErrormessage}}
     <div class="alert alert-danger">
-      <p>impossible to level up that building, not enough ressource</p>
+      <p>{{messageError}}</p>
     </div>
   {{/if}}
   <div class="buildingList">
     <h2 class="h2 mb-3">
       Buildings
     </h2>
-    <div class="row  align-content-stretch flex-wrap">
+    <div class="row align-content-stretch flex-wrap">
 
       {{#each infoBuildings}}
         <div class="col-12 col-md-6 col-lg-4">
@@ -76,14 +81,18 @@
                 </thead>
                 <tbody>
                   <tr>
-                    <th  scope="row">Metal</th>
-                    <td><span class="text-info icon-sm">{{icon "box"}}</span></td>
+                    <th scope="row">Metal</th>
+                    <td><span class="text-info icon-sm">{{icon
+                          "box"
+                        }}</span></td>
                     <td>{{floorNumber this.cost.metal}}</td>
                     <td>{{floorNumber this.production.metal}}</td>
                   </tr>
                   <tr>
-                    <th  scope="row">Energy</th>
-                    <td><span class="text-info icon-sm">{{icon "zap"}}</span></td>
+                    <th scope="row">Energy</th>
+                    <td><span class="text-info icon-sm">{{icon
+                          "zap"
+                        }}</span></td>
                     <td>{{floorNumber this.cost.energy}}</td>
                     <td>{{floorNumber this.production.energy}}</td>
                   </tr>
@@ -127,6 +136,23 @@
           <div class="shadow-sm mb-2 bg-transparent border-0">
             <div class="card-body text-center">
               <h3 class="card-title">Add new Building</h3>
+              <h5>Costs:</h5>
+              <div class="container text-end mb-3">
+                <div class="row">
+                  <div class="col">Metal Mine</div>
+                  
+                  <div class="col">60<span class="text-info icon-sm">{{icon "box"}}</span></div>
+                  
+                  <div class="col">11<span class="text-info icon-sm">{{icon "zap"}}</span></div>
+                </div>
+                <div class="row">
+                  <div class="col">Solar Plant</div>
+                  
+                  <div class="col">75<span class="text-info icon-sm">{{icon "box"}}</span></div
+                  >
+                  <div class="col">0<span class="text-info icon-sm">{{icon "zap"}}</span></div>
+                </div>
+              </div> 
               <div class="d-flex justify-content-center">
                 <button
                   data-bs-toggle="modal"
@@ -157,18 +183,16 @@
               aria-label="Close"
             ></button>
           </div>
-          <form
-            method="POST"
-            action="/planets/{{planetInfo._id}}/new-building"
-          >
+          <form method="POST" action="/planets/{{planetInfo._id}}/new-building">
             <div class="modal-body">
               <label class="mb-1" for="building">
                 Choose a type of building
               </label>
-              <select 
-                class="form-select bg-dark text-light" 
+              <select
+                class="form-select bg-dark text-light"
                 data-bs-theme="dark"
-                name="building">
+                name="building"
+              >
                 {{#each buildingTypesInfo}}
                   <option value={{this._id}}>{{this.name}}</option>
                 {{/each}}

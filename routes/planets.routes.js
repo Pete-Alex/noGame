@@ -7,6 +7,7 @@ const User = require("../models/User.model");
 
 //utils functions
 const capitalize = require("../utils/capitalize");
+const checkErrorMessage = require("../utils/errorMessage");
 
 const {
   gapTimeCalculation,
@@ -25,12 +26,12 @@ const {
 const router = express.Router();
 
 
-router.get("/planets", (req, res, next) =>{
+router.get("/planets", (req, res, next) => {
   Planet.find()
     .populate("owner").sort([["name", "asc"]])
-    .then((response)=>{
+    .then((response) => {
       const data = {
-        planetsArray : response,
+        planetsArray: response,
         user: req.session.currentUser
       }
       res.render("planets-list", data);
@@ -41,10 +42,10 @@ router.get("/planets", (req, res, next) =>{
 // GET planet by id
 router.get("/planets/:planetId", (req, res, next) => {
 
-  //booleans to display so dynamic element on the page
+  //booleans to display dynamic element on the page
   let data = {
     ischangeName: false,
-    noLevelup: false,
+    isErrormessage: false,
   };
 
   const planetId = req.params.planetId;
@@ -59,10 +60,10 @@ router.get("/planets/:planetId", (req, res, next) => {
           response.owner._id.toString()
         );
       }
-      //test to display error message for level Up impossible
-      if (req.query.errorMessage === "noLevelUp") {
-        data.noLevelup = true;
-      }
+
+      //check list of error message to display the right one
+      data = checkErrorMessage(req.query, data);
+
       const { isCurrentUserOwnPlanet, infoBuildings } = displayPlanetDetail(
         req.session.currentUser,
         response
@@ -105,18 +106,48 @@ router.post("/planets/:planetId/change-name", isUserPlanetOwner, (req, res, next
 router.post("/planets/:planetId/new-building", isUserPlanetOwner, (req, res, next) => {
   const newBuilding = req.body.building;
   const planetId = req.params.planetId;
-  Planet.findByIdAndUpdate(
-    planetId,
-    { $push: { buildings: { buildingTypeId: newBuilding, level: 1 } } },
-    { new: true }
-  )
-    .then((response) => {
-      res.redirect(`/planets/${response.id}`);
-    })
-    .catch((e) => {
-      console.log("error adding new building", e);
-      next(e);
-    });
+
+  (async () => {
+    try {
+      const buildingObj = await BuildingType.findById(newBuilding);
+
+      const fakeDataBuilding = {
+        buildingTypeId: buildingObj,
+        level: 0
+      }
+
+      //calculate how much the buidling produce & cost
+      const statsBuilding = calcBuildingStats(fakeDataBuilding);
+
+      if (statsBuilding.cost.metal <= req.session.currentUser.ressources.metal && statsBuilding.cost.energy <= req.session.currentUser.ressources.energy) {
+
+        //decrease ressources on session user
+        req.session.currentUser.ressources.metal -= statsBuilding.cost.metal;
+        req.session.currentUser.ressources.energy -= statsBuilding.cost.energy;
+
+        //update planet document with a new building
+        const planetToUpdate = await Planet.findByIdAndUpdate(planetId, { $push: { buildings: { buildingTypeId: newBuilding, level: 1 } } }, { new: true });
+
+        //update user with new ressources values
+        const userUpadted = await User.findByIdAndUpdate(
+          req.session.currentUser._id,
+          {
+            $set: {
+              "ressources.metal": req.session.currentUser.ressources.metal,
+              "ressources.energy": req.session.currentUser.ressources.energy,
+            },
+          },
+          { new: true }
+        );
+        res.redirect(`/planets/${planetId}`);
+      } else {
+        res.redirect(`/planets/${planetId}?errorMessage=noNewBuilding`);
+      }
+
+    } catch (e) {
+      console.log("error", e);
+    }
+  })();
 });
 
 module.exports = router;

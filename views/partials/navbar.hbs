@@ -29,20 +29,19 @@
 
     <div class="col-4 col-md-2 order-md-2">
       {{#if user}}
-        <p class="text-sm user-stats m-0 px-2 text-light lh-1">
-          <span class="text-info icon-sm me-1">{{icon
-              "box"
-            }}</span>{{user.ressources.metal}}
+        <p class="text-sm user-stats m-0 px-2 text-light text-end lh-1">
+          {{user.ressources.metal}}
+          <span class="text-info icon-sm ms-1">{{icon "box"}}</span>
           <br />
-          <span class="text-info icon-sm me-1">{{icon
-              "zap"
-            }}</span>{{user.ressources.energy}}
+          {{user.ressources.energy}}
+          <span class="text-info icon-sm ms-1">{{icon "zap"}}</span>
+
         </p>
       {{/if}}
     </div>
 
     <div class="col-8 col-md-4">
-      <form class="mb-0 d-flex" role="search">
+      <form class="mb-0 d-flex" method="GET" action="/search" role="search">
 
         <div class="input-group">
           <input
@@ -51,6 +50,7 @@
             data-bs-theme="dark"
             placeholder="Search …"
             aria-label="Search"
+            name="search"
           />
           <button class="btn btn-outline-primary" type="submit">
             {{icon "search"}}

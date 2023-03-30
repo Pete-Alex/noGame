@@ -20,16 +20,17 @@ router.post("/buildings/:buildingId/harvest", (req, res, next) => {
   const buildingId = req.params.buildingId;
   (async () => {
     try {
+      //query to find the planet related to the building
       const planetObj = await Planet.findOne({
         "buildings._id": buildingId,
       }).populate("buildings.buildingTypeId");
 
-      //identique
+      //find position of the buidling in the array
       const buildingIndex = planetObj.buildings.findIndex(
         (element) => element._id.toString() === buildingId
       );
 
-      //identique
+      //calculate how much the buidling produce & cost
       const statsBuilding = calcBuildingStats(
         planetObj.buildings[buildingIndex]
       );
@@ -70,16 +71,17 @@ router.post("/buildings/:buildingId/level-up", (req, res, next) => {
   const buildingId = req.params.buildingId;
   (async () => {
     try {
+      //query to find the planet related to the building
       const planetObj = await Planet.findOne({
         "buildings._id": buildingId,
       }).populate("buildings.buildingTypeId");
 
-      //identique
+      //find position of the buidling in the array
       const buildingIndex = planetObj.buildings.findIndex(
         (element) => element._id.toString() === buildingId
       );
 
-      //identique
+      //calculate how much the buidling produce & cost
       const statsBuilding = calcBuildingStats(
         planetObj.buildings[buildingIndex]
       );

@@ -1,0 +1,104 @@
+<main class="container my-4">
+  <h1>Search Results</h1>
+  <a href="/">back</a>
+  <div class="userList"></div>
+  {{#if users}}
+
+    <h2 class="h2 mb-3">{{returnArrayLength users}}
+      user(s) matching
+      <span class="text-primary">{{query}}!</span></h2>
+    {{#each users}}
+      <h3>{{this.username}}</h3>
+      <p>
+        {{returnArrayLength this.planetListOwned}}
+        <span class="text-info icon-sm ms-1 me-3">
+          {{icon "circle"}}
+        </span>
+        {{this.ressources.metal}}
+        <span class="text-info icon-sm ms-1 me-3">
+          {{icon "box"}}
+        </span>
+        {{this.ressources.energy}}
+        <span class="text-info icon-sm ms-1 me-3">
+          {{icon "zap"}}
+        </span>
+      </p>
+
+      <div class="row align-items-stretch">
+        {{#each this.planetListOwned}}
+
+          <div class="col-12 col-md-4">
+
+            <div class="card shadow-sm mb-3 bg-dark">
+              <div class="img-container">
+                <img class="card-img-top" src="/images/{{this.image}}" alt="" />
+              </div>
+              <div class="card-body">
+                <h3 class="card-title">{{this.name}}</h3>
+                <span class="card-title fs-6">Owner:
+                  {{../username}}</span>
+                <div class="d-flex justify-content-between align-items-center">
+                  <small class="text-body-secondary">
+                    Buildings:
+                    {{returnLength this.buildings}}
+                  </small>
+                  <a
+                    href="/planets/{{this._id}}"
+                    type="button"
+                    class="btn btn-sm btn-outline-primary stretched-link"
+                  >View</a>
+
+                </div>
+              </div>
+
+            </div>
+          </div>
+        {{/each}}
+      </div>
+
+    {{/each}}
+  {{else}}
+    <h2 class="h2 mb-3">No Users found matching
+      <span class="text-primary">{{query}}!</span></h2>
+  {{/if}}
+  <div class="planetList">
+    {{#if planets}}
+      <h2 class="h2 mb-3">All Planets matching
+        <span class="text-primary">{{query}}</span></h2>
+      <div class="row align-items-stretch">
+        {{#each planets}}
+          <div class="col-12 col-md-4">
+
+            <div class="card shadow-sm mb-3 bg-dark">
+              <div class="img-container">
+                <img class="card-img-top" src="/images/{{this.image}}" alt="" />
+              </div>
+              <div class="card-body">
+                <h3 class="card-title">{{this.name}}</h3>
+                <span class="card-title fs-6">Owner:
+                  {{this.owner.username}}</span>
+                <div class="d-flex justify-content-between align-items-center">
+                  <small class="text-body-secondary">
+                    Buildings:
+                    {{returnLength this.buildings}}
+                  </small>
+                  <a
+                    href="/planets/{{this._id}}"
+                    type="button"
+                    class="btn btn-sm btn-outline-primary stretched-link"
+                  >View</a>
+
+                </div>
+              </div>
+
+            </div>
+          </div>
+        {{/each}}
+      </div>
+
+    {{else}}
+      <h2 class="h2 mb-3">No Planets found matching
+        <span class="text-primary">{{query}}</span>!</h2>
+    {{/if}}
+  </div>
+</main>
