@@ -7,6 +7,7 @@ const User = require("../models/User.model");
 
 //utils functions
 const capitalize = require("../utils/capitalize");
+const checkErrorMessage = require("../utils/errorMessage");
 
 const {
   isUserLoggedIn,
@@ -25,15 +26,8 @@ router.get("/", (req, res, next) => {
     isErrormessage: false,
   };
 
-  //test to display error message
-  if (req.query.errorMessage != undefined) {
-    data.isErrormessage = true;
-    switch (req.query.errorMessage) {
-      case 'noNewPlanet':
-        data.messageError = "you can't buy the planet, you don't have enough ressources"
-        break;
-    }
-  }
+  //check list of error message to display the right one
+  data = checkErrorMessage(req.query, data);
 
   if (req.session.currentUser != undefined) {
     User.findById(req.session.currentUser._id)
@@ -55,6 +49,7 @@ router.get("/", (req, res, next) => {
 
 router.post("/create-planet", isUserLoggedIn, (req, res, next) => {
 
+  //new planet Data
   const newPlanetDetail = {
     name: capitalize(req.body.planetName),
     owner: req.session.currentUser._id,
@@ -64,24 +59,25 @@ router.post("/create-planet", isUserLoggedIn, (req, res, next) => {
 
   (async () => {
     try {
+      //test to make sure user has enough ressources
       if (req.session.currentUser.ressources.metal >= 100000 && req.session.currentUser.ressources.energy >= 100000) {
 
         //decrease ressources on session user
         req.session.currentUser.ressources.metal -= 100000;
         req.session.currentUser.ressources.energy -= 100000;
 
+        //creation of new planet document
         const newPlanetObj = await Planet.create(newPlanetDetail);
 
+        //update of user to link the new planet and udpate ressources
         const userUpadted = await User.findByIdAndUpdate(req.session.currentUser._id, { $push: { planetListOwned: newPlanetObj._id }, $set: { "ressources.metal": req.session.currentUser.ressources.metal, "ressources.energy": req.session.currentUser.ressources.energy, } }, { new: true }).populate("planetListOwned");
         req.session.currentUser = userUpadted.toObject();
 
         res.redirect(`/`);
       } else {
+        //if user has not enough ressource send error message
         res.redirect(`/?errorMessage=noNewPlanet`);
       }
-
-
-
     } catch (e) {
       console.log("error", e);
     }

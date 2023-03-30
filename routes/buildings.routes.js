@@ -20,6 +20,7 @@ router.post("/buildings/:buildingId/harvest", (req, res, next) => {
   const buildingId = req.params.buildingId;
   (async () => {
     try {
+      //query to find the planet related to the building
       const planetObj = await Planet.findOne({
         "buildings._id": buildingId,
       }).populate("buildings.buildingTypeId");
@@ -70,6 +71,7 @@ router.post("/buildings/:buildingId/level-up", (req, res, next) => {
   const buildingId = req.params.buildingId;
   (async () => {
     try {
+      //query to find the planet related to the building
       const planetObj = await Planet.findOne({
         "buildings._id": buildingId,
       }).populate("buildings.buildingTypeId");

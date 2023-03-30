@@ -18,8 +18,6 @@ function checkPlanetUser(sessionUserId, planetUserId) {
 }
 
 function calcBuildingStats(buildingObj) {
-    //console.log(buildingObj);
-      //console.log("--------------------");
     const productionEquation = eval(`${buildingObj.buildingTypeId.productionEquation}(${buildingObj.level})`);
     const costEquation = eval(`${buildingObj.buildingTypeId.costEquation}(${buildingObj.level})`);
     Math.floor()
