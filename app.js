@@ -30,6 +30,10 @@ hbs.registerHelper("floorNumber", function (num) {
   return Math.floor(num);
 });
 
+hbs.registerHelper("returnArrayLength", function (arr) {
+  return arr.length;
+});
+
 hbs.registerHelper("returnImgName", function (obj) {
   let arr;
   let type;
@@ -45,8 +49,6 @@ hbs.registerHelper("returnImgName", function (obj) {
   return `${type}-${counter}.png`;
 });
 
-
-
 //
 // ROUTES
 //
@@ -54,6 +56,7 @@ app.use("/", require("./routes/index.routes"));
 app.use("/", require("./routes/planets.routes"));
 app.use("/", require("./routes/buildings.routes"));
 app.use("/", require("./routes/auth.routes"));
+app.use("/", require("./routes/search.routes"));
 
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require("./error-handling")(app);
