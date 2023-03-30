@@ -123,7 +123,6 @@ router.post("/login", isUserLoggedOut, (req, res, next) => {
           req.session.currentUser = user.toObject();
           // Remove the password field
           delete req.session.currentUser.password;
-          // console.log("done with login!");
           res.redirect("/");
         })
         .catch((err) => {

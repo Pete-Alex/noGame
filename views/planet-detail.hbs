@@ -4,7 +4,7 @@
     {{#if ischangeName}}
       <form
         class="input-group input-group-lg"
-        action="/planet/{{planetInfo._id}}/change-name"
+        action="/planets/{{planetInfo._id}}/change-name"
         method="POST"
       >
         <input
@@ -157,7 +157,7 @@
           </div>
           <form
             method="POST"
-            action="/planet/{{planetInfo._id}}/new-building"
+            action="/planets/{{planetInfo._id}}/new-building"
           >
             <div class="modal-body">
               <label class="mb-1" for="building">

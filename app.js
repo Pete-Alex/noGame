@@ -8,7 +8,6 @@ require("./config")(app); // ℹ️ This function is getting exported from the c
 require("./config/session.config")(app);
 
 // default value for title local
-const capitalize = require("./utils/capitalize");
 const projectName = "NoGame";
 
 app.locals.appTitle = `${projectName}`;
@@ -46,10 +45,14 @@ hbs.registerHelper("returnImgName", function (obj) {
   return `${type}-${counter}.png`;
 });
 
+
+
 //
 // ROUTES
 //
 app.use("/", require("./routes/index.routes"));
+app.use("/", require("./routes/planets.routes"));
+app.use("/", require("./routes/buildings.routes"));
 app.use("/", require("./routes/auth.routes"));
 
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes

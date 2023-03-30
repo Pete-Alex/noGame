@@ -1,5 +1,4 @@
 function isUserLoggedIn(req, res, next) {
-    console.log("test");
     if (req.session.currentUser) {
         next();
     } else {
@@ -16,7 +15,16 @@ function isUserLoggedOut(req, res, next) {
     next();
 }
 
+function isUserPlanetOwner(req, res, next) {
+    if (req.session.currentUser.planetListOwned.some(e => e._id === req.params.planetId)) {
+        next();
+    } else {
+        res.redirect(`/`);
+    }
+}
+
 module.exports = { 
     isUserLoggedIn,
-    isUserLoggedOut
+    isUserLoggedOut,
+    isUserPlanetOwner
   };

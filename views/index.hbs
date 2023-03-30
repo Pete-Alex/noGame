@@ -21,7 +21,7 @@
                     {{returnLength this.buildings}}
                   </small>
                   <a
-                    href="/planet/{{this._id}}"
+                    href="/planets/{{this._id}}"
                     type="button"
                     class="btn btn-sm btn-outline-primary stretched-link"
                   >View</a>
@@ -37,23 +37,6 @@
           <div class="shadow-sm mb-2 bg-tranparent border-0">
             <div class="card-body text-center">
               <h3 class="card-title">Create New Planet</h3>
-              {{#if isCreatePlanet}}
-                <form
-                  class="mx-2 mb-0 d-flex"
-                  method="POST"
-                  action="create-planet"
-                >
-                  <input
-                    type="search"
-                    class="form-control mr-1"
-                    placeholder="choose a name"
-                    name="planetName"
-                  />
-                  <button class="btn btn-outline-primary ms-1" type="submit">
-                    Create Planet
-                  </button>
-                </form>
-              {{else}}
                 <div class="d-flex justify-content-center">
                   <button
                     data-bs-toggle="modal"
@@ -63,7 +46,6 @@
                     class="btn btn-lg btn-pill btn-primary"
                   >{{icon "plus"}}</button>
                 </div>
-              {{/if}}
             </div>
           </div>
         </div>
