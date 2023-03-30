@@ -139,8 +139,6 @@ router.post("/planets/:planetId/new-building", isUserPlanetOwner, (req, res, nex
           },
           { new: true }
         );
-        res.redirect(`/planets/${planetObj._id}`);
-
         res.redirect(`/planets/${planetId}`);
       } else {
         res.redirect(`/planets/${planetId}?errorMessage=noNewBuilding`);
