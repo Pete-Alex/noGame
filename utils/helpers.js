@@ -2,8 +2,6 @@ const hbs = require("hbs");
 const feather = require("feather-icons");
 
 function initHelpers() {
-  hbs.registerPartials(__dirname + "/views/partials");
-
   hbs.registerHelper("icon", function (iconName) {
     iconName = iconName.toString();
     return new hbs.SafeString(feather.icons[iconName].toSvg());

@@ -10,15 +10,18 @@
     {{#each users}}
       <h3>{{this.username}}</h3>
       <p>
-        <span class="text-info icon-sm me-1">
+        {{returnArrayLength this.planetListOwned}}
+        <span class="text-info icon-sm ms-1 me-3">
           {{icon "circle"}}
-        </span>{{returnArrayLength this.planetListOwned}}
-        <span class="text-info icon-sm ms-3 me-1">
+        </span>
+        {{this.ressources.metal}}
+        <span class="text-info icon-sm ms-1 me-3">
           {{icon "box"}}
-        </span>{{this.ressources.metal}}
-        <span class="text-info icon-sm ms-3 me-1">
+        </span>
+        {{this.ressources.energy}}
+        <span class="text-info icon-sm ms-1 me-3">
           {{icon "zap"}}
-        </span>{{this.ressources.energy}}
+        </span>
       </p>
 
       <div class="row align-items-stretch">
