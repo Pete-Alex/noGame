@@ -70,16 +70,17 @@ router.post("/create-planet", (req, res, next) => {
     });
 });
 
-router.get("/planets", (req, res, next) =>{
+router.get("/planets", (req, res, next) => {
   Planet.find()
-    .populate("owner").sort([["name", "asc"]])
-    .then((response)=>{
+    .populate("owner")
+    .sort([["name", "asc"]])
+    .then((response) => {
       const data = {
-        planetsArray : response,
-        user: req.session.currentUser
-      }
+        planetsArray: response,
+        user: req.session.currentUser,
+      };
       res.render("planets-list", data);
-    })
+    });
 });
 
 // GET planet by id
@@ -117,7 +118,7 @@ router.get("/planet/:planetId", (req, res, next) => {
     })
     .then((response) => {
       data.buildingTypesInfo = response;
-      console.log(data);
+      // console.log(data);
       res.render("planet-detail", data);
     })
     .catch((e) => {
