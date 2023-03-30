@@ -105,6 +105,27 @@ router.post("/planets/:planetId/change-name", isUserPlanetOwner, (req, res, next
 router.post("/planets/:planetId/new-building", isUserPlanetOwner, (req, res, next) => {
   const newBuilding = req.body.building;
   const planetId = req.params.planetId;
+
+  /*BuildingType.findById(newBuilding)
+    .then((response)=>{
+      const fakeDataBuilding = {
+        buildingTypeId : response,
+        level : 0
+      }
+
+      //calculate how much the buidling produce & cost
+      const statsBuilding = calcBuildingStats(fakeDataBuilding);
+      if (
+        statsBuilding.cost.metal <= req.session.currentUser.ressources.metal &&
+        statsBuilding.cost.energy <= req.session.currentUser.ressources.energy
+      ) {
+
+      } else {
+        
+      }
+    })*/
+
+
   Planet.findByIdAndUpdate(
     planetId,
     { $push: { buildings: { buildingTypeId: newBuilding, level: 1 } } },
