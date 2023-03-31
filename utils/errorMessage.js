@@ -11,6 +11,9 @@ function checkErrorMessage(query, data) {
             case 'noLevelUp':
                 data.messageError = "you can't level up the building, you don't have enough ressources"
                 break;
+            case 'noPlanetName':
+                data.messageError = "you need to have a name for the planet"
+
         }
     }
     return data;

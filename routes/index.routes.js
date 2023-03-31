@@ -12,7 +12,7 @@ const checkErrorMessage = require("../utils/errorMessage");
 const {
   isUserLoggedIn,
   isUserLoggedOut,
-  isUserPlanetOwner,
+  isUserPlanetOwner
 } = require("../middleware/logged.js");
 
 
@@ -51,7 +51,7 @@ router.post("/create-planet", isUserLoggedIn, (req, res, next) => {
 
   //new planet Data
   const newPlanetDetail = {
-    name: capitalize(req.body.planetName),
+    name: req.body.planetName,
     owner: req.session.currentUser._id,
     buildings: [],
     image: `planet-${Math.floor(Math.random() * (11 - 1 + 1) + 1)}.png`,
@@ -80,6 +80,9 @@ router.post("/create-planet", isUserLoggedIn, (req, res, next) => {
       }
     } catch (e) {
       console.log("error", e);
+      req.session.currentUser.ressources.metal += 100000;
+      req.session.currentUser.ressources.energy += 100000;
+      res.redirect(`/?errorMessage=noPlanetName`);
     }
   })();
 
