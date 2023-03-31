@@ -1,49 +1,52 @@
 <main>
-  <form
-    action="/signup"
-    method="POST"
-    id="signup-form"
-    class="form-signup w-50 m-auto text-light"
-  >
-    <h1 class="h1 my-y fw-normal">Sign up for an account</h1>
-
-    <label class="mb-1" for="userName">User Name</label>
-    <input
-      name="username"
-      type="username"
-      class="form-control text-light bg-dark mb-2"
-      data-bs-theme="dark"
-      placeholder="user name"
-    />
-
-    <label class="mb-1" for="email">Email address</label>
-    <input
-      name="email"
-      type="email"
-      class="form-control text-light bg-dark mb-2"
-      data-bs-theme="dark"
-      placeholder="name@example.com"
-    />
-
-    <label class="mb-1" for="password">Password</label>
-    <input
-      name="password"
-      type="password"
-      class="form-control text-light bg-dark mb-2"
-      data-bs-theme="dark"
-      placeholder="Password"
-    />
-    <button class="w-100 btn btn-primary mt-2 mb-3" type="submit">Sign up</button>
-  </form>
-  <p class="text-center text-sm">
-    Already have an account?
-    <a class="text-primary" href="/login">
-      Click here to log in!
-    </a>
-  </p>
-  {{#if errorMessage}}
-    <div class="alert alert-danger">
-      {{errorMessage}}
+  <div class="container">
+    <div class="row d-flex justify-content-center">
+      <div class="col-12 col-md-6 col-lg-4">
+        <h1 class="h1 my-y fw-normal">Sign up for an account</h1>
+        <form
+          action="/signup"
+          method="POST"
+          id="signup-form"
+          class="form-signup text-light"
+        >
+          <label class="mb-1" for="userName">User Name</label>
+          <input
+            name="username"
+            type="username"
+            class="form-control text-light bg-dark mb-2"
+            data-bs-theme="dark"
+            placeholder="user name"
+          />
+          <label class="mb-1" for="email">Email address</label>
+          <input
+            name="email"
+            type="email"
+            class="form-control text-light bg-dark mb-2"
+            data-bs-theme="dark"
+            placeholder="name@example.com"
+          />
+          <label class="mb-1" for="password">Password</label>
+          <input
+            name="password"
+            type="password"
+            class="form-control text-light bg-dark mb-2"
+            data-bs-theme="dark"
+            placeholder="Password"
+          />
+          <button class="w-100 btn btn-primary mt-2 mb-3" type="submit">Sign up</button>
+        </form>
+        <p class="text-center text-sm">
+          Already have an account?
+          <a class="text-primary" href="/login">
+            Click here to log in!
+          </a>
+        </p>
+        {{#if errorMessage}}
+          <div class="alert alert-danger">
+            {{errorMessage}}
+          </div>
+        {{/if}}
+      </div>
     </div>
-  {{/if}}
+  </div>
 </main>
