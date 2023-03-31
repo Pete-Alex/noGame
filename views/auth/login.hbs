@@ -1,42 +1,45 @@
 <main>
-  <form
-    action="/login"
-    method="POST"
-    id="login-form"
-    class="form-login w-50 m-auto"
-  >
-    <h1 class="h1 my-4 fw-normal">Log in</h1>
+  <div class="container">
+    <div class="row d-flex justify-content-center">
+      <div class="col-12 col-md-6 col-lg-4">
 
-    <label class="mb-1" for="email">Email address</label>
-    <input
-      name="email"
-      type="email"
-      class="form-control text-light bg-dark mb-2"
-      data-bs-theme="dark"
-      id="floatingInput"
-      placeholder="name@example.com"
-    />
+        <h1 class="h1 my-4 fw-normal">Log in</h1>
+        <form action="/login" method="POST" id="login-form" class="form-login">
 
-    <label class="mb-1" for="password">Password</label>
-    <input
-      name="password"
-      type="password"
-      class="form-control text-light bg-dark mb-2"
-      data-bs-theme="dark"
-      id="floatingPassword"
-      placeholder="Password"
-    />
-    <button class="w-100 btn btn-primary mt-2 mb-3" type="submit">Log in</button>
-  </form>
-  <p class="text-center text-sm">
-    No account yet?
-    <a class="text-primary" href="/signup">
-      Click here to register!
-    </a>
-  </p>
-  {{#if errorMessage}}
-    <div class="alert alert-danger">
-      {{errorMessage}}
+          <label class="mb-1" for="email">Email address</label>
+          <input
+            name="email"
+            type="email"
+            class="form-control text-light bg-dark mb-2"
+            data-bs-theme="dark"
+            id="floatingInput"
+            placeholder="name@example.com"
+          />
+
+          <label class="mb-1" for="password">Password</label>
+          <input
+            name="password"
+            type="password"
+            class="form-control text-light bg-dark mb-2"
+            data-bs-theme="dark"
+            id="floatingPassword"
+            placeholder="Password"
+          />
+          <button class="w-100 btn btn-primary mt-2 mb-3" type="submit">Log in</button>
+        </form>
+        <p class="text-center text-sm">
+          No account yet?
+          <a class="text-primary" href="/signup">
+            Click here to register!
+          </a>
+        </p>
+        {{#if errorMessage}}
+          <div class="alert alert-danger">
+            {{errorMessage}}
+          </div>
+        {{/if}}
+
+      </div>
     </div>
-  {{/if}}
+  </div>
 </main>
