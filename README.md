@@ -3,6 +3,8 @@
 Was built by [Aleandre Benat](https://github.com/ABenat1988) and [Peter Sekan](https://github.com/PDXIII) during the [Ironhack](https://www.ironhack.com/) Web Dev RMT Bootcamp Feb. 2023 as a learning project.
 It is a simple adaption of the famous [OGame](https://gameforge.com/en-GB/play/ogame). One of the most popular browser games ever.
 
+here a link to try it: [https://nogame.adaptable.app/](https://nogame.adaptable.app/)
+
 ## Disclaimer
 
 **Don’t clone this repo, unless you know what your doing!** You might have noticed that our repo contains a **node_modules** directory. This is caused due issues during the deployment process and the lack of time that asked for a quick solution. We might fix this later but know promises.
